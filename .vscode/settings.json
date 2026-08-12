@@ -1,0 +1,10 @@
+{
+    "cSpell.words": [
+        "Layershell",
+        "Quickshell"
+    ],
+    "[qml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+}
+}

@@ -1,0 +1,23 @@
+import Quickshell
+import "modules"
+
+ShellRoot {
+ Variants {
+        model: Quickshell.screens
+        delegate: Wallpaper {
+            required property var modelData
+            screen: modelData
+            wallpaperPath: Config.wallpaperPath
+            wallpaperMode: Config.wallpaperMode
+        }
+    }
+
+    Variants {
+        model: Quickshell.screens
+        delegate: Bar {
+            required property var modelData
+            screen: modelData
+            colors: Colors
+        }
+    }
+}
