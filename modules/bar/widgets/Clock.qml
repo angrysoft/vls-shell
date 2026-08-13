@@ -1,7 +1,7 @@
 import Quickshell
 import QtQuick
-import qs.theme
 import qs.components
+import qs.config
 
 TextLabel {
     SystemClock {
@@ -10,8 +10,9 @@ TextLabel {
     }
 
     readonly property var plLocale: Qt.locale()
+    property string format: Config.modules.bar.clockFormat ? Config.modules.bar.clockFormat : "ddd d MMM hh:mm:ss"
 
-    text: plLocale.toString(clock.date, "ddd d MMM hh:mm:ss")
+    text: plLocale.toString(clock.date, format)
     
     bold: true
 }

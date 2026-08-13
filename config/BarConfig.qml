@@ -4,5 +4,6 @@ JsonObject {
     property bool enabled: true
     property string position: "top"
     property int height: 30
+    property string clockFormat: "ddd d MMM hh:mm"
     property var widgets: []
 }

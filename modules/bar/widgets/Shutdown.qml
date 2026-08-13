@@ -3,42 +3,34 @@ import Quickshell.Widgets
 import QtQuick
 import qs.components
 import qs.theme
-
-
-// Rectangle {
-//     id: powerButton
-//     implicitHeight: Theme.style.barHeight + Theme.style.padding * 2
-//     implicitWidth: implicitHeight
     
-//     color: "transparent"
-    
-    IconImage {
-        id: powerButton
-        implicitSize: Theme.style.barHeight + Theme.style.padding * 2
-        anchors.verticalCenter: parent.verticalCenter
-        source: Quickshell.iconPath("system-shutdown-panel")
-        smooth: true
-        property bool isOpen: false
+IconImage {
+    id: powerButton
+    implicitSize: Theme.style.barHeight + Theme.style.padding * 2
+    anchors.verticalCenter: parent.verticalCenter
+    source: Quickshell.iconPath("system-shutdown-panel")
+    smooth: true
+    property bool isOpen: false
 
-        HoverHandler{
-            id: hover
-            cursorShape: Qt.PointingHandCursor
-        }
+    HoverHandler{
+        id: hover
+        cursorShape: Qt.PointingHandCursor
+    }
 
-        TapHandler {
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
-            onTapped:(eventPoint, button) => {
-                if (button === Qt.LeftButton) {
-                    isOpen = !isOpen;
-                } else if (button === Qt.RightButton) {
-                    isOpen = !isOpen;
-                }
+    TapHandler {
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onTapped:(eventPoint, button) => {
+            if (button === Qt.LeftButton) {
+                isOpen = !isOpen;
+            } else if (button === Qt.RightButton) {
+                isOpen = !isOpen;
             }
         }
+    }
 
-        onIsOpenChanged: {
-    if (!isOpen) closeTimer.start()
-}
+    onIsOpenChanged: {
+        if (!isOpen) closeTimer.start()
+    }
         
         PopupWindow {
             id: popup
@@ -49,9 +41,8 @@ import qs.theme
                 edges: Edges.Bottom | Edges.Left
                 gravity: Edges.Bottom | Edges.Right
             }
-            // anchor.rect.x: parentWindow.width / 2 - width / 2
-            // anchor.rect.y: parentWindow.height
-            implicitHeight: column.implicitHeight + Theme.style.padding
+            
+            implicitHeight: column.implicitHeight + Theme.style.padding *2
             implicitWidth: implicitHeight
             visible: powerButton.isOpen || closeTimer.running
 
@@ -112,10 +103,11 @@ import qs.theme
 
                 Repeater {
                     model: [
-                        { label: "Lock",     icon: "lock-screen" },
-                        { label: "Logout",   icon: "system-log-out-symbolic" },
-                        { label: "Reboot",   icon: "system-reboot-symbolic" },
-                        { label: "Shutdown", icon: "system-shutdown-symbolic" }
+                        { label: qsTr("Lock"),     icon: "lock-screen" },
+                        { label: qsTr("Logout"),   icon: "system-log-out-symbolic" },
+                        { label: qsTr("Suspend"), icon: "system-suspend-symbolic" },
+                        { label: qsTr("Reboot"),   icon: "system-reboot-symbolic" },
+                        { label: qsTr("Shutdown"), icon: "system-shutdown-symbolic" },
                     ]
 
                     delegate: Rectangle {
