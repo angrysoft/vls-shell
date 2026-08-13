@@ -8,7 +8,7 @@ Singleton {
 	property alias colors: colors
     
 	FileView {
-			path: `${Quickshell.env("HOME")}/.config/angry-shell/colors.json`
+			path: `${Quickshell.env("HOME")}/.config/vls-shell/colors.json`
 			watchChanges: true
 			onFileChanged: reload()
 
@@ -71,7 +71,7 @@ Singleton {
 	property alias style: style
 
 	FileView {
-		path: `${Quickshell.env("HOME")}/.config/angry-shell/style.json`
+		path: `${Quickshell.env("HOME")}/.config/vls-shell/style.json`
 		watchChanges: true
 		onFileChanged: reload()
 

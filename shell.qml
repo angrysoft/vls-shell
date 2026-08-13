@@ -1,4 +1,4 @@
-//@ pragma ShellId angry-shell
+//@ pragma ShellId vls-shell
 //@ pragma UseQApplication
 //@ pragma IconTheme Papirus
 

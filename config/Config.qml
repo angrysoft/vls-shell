@@ -9,7 +9,7 @@ Singleton {
 
     FileView {
         id: file
-        path: `${Quickshell.env("HOME")}/.config/angry-shell/config.json`
+        path: `${Quickshell.env("HOME")}/.config/vls-shell/config.json`
         watchChanges: true
         onFileChanged: reload()
         onAdapterUpdated: writeAdapter()
