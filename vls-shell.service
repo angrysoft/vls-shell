@@ -1,0 +1,14 @@
+[Unit]
+Description=Veles Shell Desktop Shell
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/quickshell -p /home/seba/workspace/vls-shell
+Restart=on-failure
+RestartSec=1s
+
+[Install]
+WantedBy=graphical-session.target
