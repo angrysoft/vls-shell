@@ -91,9 +91,10 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: Theme.style.spacing
 
+
                 SysTray {
                 }
-
+                
                 Shutdown {
                 }
             
