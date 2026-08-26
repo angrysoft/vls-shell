@@ -7,10 +7,22 @@ import qs.theme
 Row {
     spacing: Theme.style.spacing
     anchors.verticalCenter: parent.verticalCenter
+
+    WheelHandler {
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+        onWheel: wheel => {
+            if (wheel.angleDelta.y > 0) {
+                I3.dispatch("workspace prev");
+            } else if (wheel.angleDelta.y < 0) {
+                I3.dispatch("workspace next");
+            }
+        }
+    }
     
     Repeater {
         model: I3.workspaces
         delegate: Rectangle {
+            id: wdButton
             implicitHeight: Theme.style.barHeight - Theme.style.padding * 2
             implicitWidth: implicitHeight
             radius: Theme.style.borderRadius
@@ -33,16 +45,7 @@ Row {
                 }
             }
 
-            WheelHandler {
-                acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-                onWheel: wheel => {
-                    if (wheel.angleDelta.y > 0) {
-                        I3.dispatch("workspace prev");
-                    } else if (wheel.angleDelta.y < 0) {
-                        I3.dispatch("workspace next");
-                    }
-                }
-            }
+            
             }
         }
 }

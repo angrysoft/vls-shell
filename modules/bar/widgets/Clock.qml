@@ -4,13 +4,14 @@ import qs.components
 import qs.config
 
 TextLabel {
+    id: clockView
     SystemClock {
         id: clock
         precision: SystemClock.Seconds
     }
 
     readonly property var plLocale: Qt.locale()
-    property string format: Config.modules.bar.clockFormat ? Config.modules.bar.clockFormat : "ddd d MMM hh:mm:ss"
+    readonly property string format: Config.modules.bar.clockFormat ? Config.modules.bar.clockFormat : "ddd d MMM hh:mm:ss"
 
     text: plLocale.toString(clock.date, format)
     

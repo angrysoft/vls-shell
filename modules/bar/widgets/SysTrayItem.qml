@@ -5,12 +5,11 @@ import QtQuick
 import qs.theme
 
 
-Rectangle {
+Item {
     id: root
     property SystemTrayItem item
     implicitWidth: parent.height
     implicitHeight: parent.height
-    color: "transparent"
     // acceptedButtons: Qt.LeftButton | Qt.RightButton
 
     QsMenuAnchor {
@@ -43,5 +42,6 @@ Rectangle {
         anchors.centerIn: parent
         source: root.item.icon
         implicitSize: parent.height
+        smooth: true
     }
 }

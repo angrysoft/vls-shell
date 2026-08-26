@@ -18,6 +18,32 @@ Row {
     property string focusedWindow: ""
     property string focusedAppId: ""
 
+     I3IpcListener {
+        subscriptions: ["window", "workspace"]
+
+        onIpcEvent: function (event) {
+            const data = JSON.parse(event.data)
+            console.log("I3IpcListener event type:", event.type, data.change)
+            if (event.type === "window") {
+                if (data.change === "close") {
+                    hideStatus()
+                } else if (data.change === "focus") {
+                    visible = data.container.visible ?? false
+                    focusedWindow = data.container.name ?? ""
+                    focusedAppId = (data.container.app_id ?? "").toLowerCase()
+                }
+            } else if (event.type === "workspace" && data.change === "focus" && data.current.nodes.length === 0) {
+                hideStatus()
+            }
+        }
+    }
+
+    function hideStatus() {
+        visible = false
+        focusedWindow = ""
+        focusedAppId = ""
+    }
+
     function findFocused(node) {
         if (node.focused) return node
         for (var i = 0; i < (node.nodes?.length ?? 0); i++) {
@@ -46,6 +72,9 @@ Row {
         return map[appId] || appId
     }
 
+    
+    // Initially fetch the focused window and appId from sway
+    // This is necessary because the I3IpcListener only receives events after it has been created, so we need to fetch the current state of the tree to get the initial focused window and appId. 
     Process {
         id: treeProc
         command: ["swaymsg", "-t", "get_tree"]
@@ -56,22 +85,12 @@ Row {
                     var tree = JSON.parse(text)
                     var focused = findFocused(tree)
                     if (focused) {
-                        visible = focused.visible ??  false  // only update if the focused window has changed
+                        visible = focused.visible ??  false 
                         focusedWindow = focused.name ?? ""
                         focusedAppId = (focused.app_id ?? focused.window_properties?.class ?? "").toLowerCase()
                     }
                 } catch(e) {}
             }
-        }
-    }
-
-
-    // Long-running subscriber — fires on every window/workspace event
-    Process {
-        command: ["swaymsg", "-t", "subscribe", "-m", "[\"window\", \"workspace\"]"]
-        running: true
-        stdout: SplitParser {
-            onRead: treeProc.running = true   // re-run tree query
         }
     }
     
@@ -103,16 +122,6 @@ Row {
         smooth: true
     }
 
-    // Text {
-    //     text: focusedWindow
-    //     color: Theme.colors.on_surface
-    //     font.family: Theme.style.fontFamily
-    //     font.pixelSize: Theme.style.fontSize
-    //     font.bold: true
-    //     anchors.verticalCenter: parent.verticalCenter
-    //     elide: Text.ElideRight
-    //     maximumLineCount: 1
-    // }
     TextLabel {
         text: focusedWindow
         maximumLineCount: 1

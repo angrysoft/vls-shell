@@ -15,7 +15,8 @@ Row {
         model: SystemTray.items
 
         SysTrayItem {
-            item: model.modelData
+            required property SystemTrayItem modelData
+            item: modelData
         }
     }
 }

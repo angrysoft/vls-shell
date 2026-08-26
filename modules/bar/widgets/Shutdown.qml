@@ -6,7 +6,7 @@ import qs.theme
     
 IconImage {
     id: powerButton
-    implicitSize: Theme.style.barHeight + Theme.style.padding * 2
+    implicitSize: Theme.style.barHeight - Theme.style.padding * 2
     anchors.verticalCenter: parent.verticalCenter
     source: Quickshell.iconPath("system-shutdown-panel")
     smooth: true
@@ -103,11 +103,11 @@ IconImage {
 
                 Repeater {
                     model: [
-                        { label: qsTr("Lock"),     icon: "lock-screen" },
-                        { label: qsTr("Logout"),   icon: "system-log-out-symbolic" },
-                        { label: qsTr("Suspend"), icon: "system-suspend-symbolic" },
-                        { label: qsTr("Reboot"),   icon: "system-reboot-symbolic" },
-                        { label: qsTr("Shutdown"), icon: "system-shutdown-symbolic" },
+                        { id: "lock", label: qsTr("Lock"),     icon: "lock-screen" },
+                        { id: "logout", label: qsTr("Logout"),   icon: "system-log-out-symbolic" },
+                        { id: "suspend", label: qsTr("Suspend"), icon: "system-suspend-symbolic" },
+                        { id: "reboot", label: qsTr("Reboot"),   icon: "system-reboot-symbolic" },
+                        { id: "shutdown", label: qsTr("Shutdown"), icon: "system-shutdown-symbolic" },
                     ]
 
                     delegate: Rectangle {
@@ -125,7 +125,7 @@ IconImage {
 
                         TapHandler {
                             onTapped: {
-                                console.log("Clicked:", item.modelData.label)
+                                console.log("Clicked:", item.modelData.id)
                                 powerButton.isOpen = false
                                 // TODO: wywołaj akcję
                             }
