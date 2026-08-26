@@ -44,9 +44,6 @@ PanelWindow {
             radius: implicitHeight / 2
 
             Row {
-                // anchors.left: parent.left
-                // anchors.leftMargin: Theme.style.margin
-                // anchors.verticalCenter: parent.verticalCenter
                 spacing: Theme.style.spacing
                 
                 Menu {}
@@ -93,7 +90,8 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: Theme.style.spacing
 
-
+                CpuMonitor {
+                }
                 SysTray {
                 }
                 
