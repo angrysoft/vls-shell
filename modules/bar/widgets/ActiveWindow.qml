@@ -23,7 +23,6 @@ Row {
 
         onIpcEvent: function (event) {
             const data = JSON.parse(event.data)
-            console.log("I3IpcListener event type:", event.type, data.change)
             if (event.type === "window") {
                 if (data.change === "close") {
                     hideStatus()

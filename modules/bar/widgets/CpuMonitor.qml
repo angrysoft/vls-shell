@@ -1,9 +1,13 @@
 import QtQuick
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Io
 import qs.components
+import qs.theme
 
-TextLabel {
+Row {
+    spacing: Theme.style.spacing
+    anchors.verticalCenter: parent.verticalCenter
     property real cpuUsage: 0.0
 
     // Zmienne do przechowywania wartości z poprzedniej iteracji
@@ -11,12 +15,15 @@ TextLabel {
     property var prevIdle: 0
 
     FileView {
+        id: statReader
         path: "/proc/stat"
+       
 
         onLoaded: {
-            var content = file.readAll();
-            var lines = content.split("\n");
-            
+            let content = text().trim();
+            if (!content) return;
+
+            let lines = content.split("\n");
             // Szukamy pierwszego wiersza zbiorczego "cpu "
             for (var i = 0; i < lines.length; i++) {
                 if (lines[i].startsWith("cpu ")) {
@@ -53,6 +60,27 @@ TextLabel {
         }
     }
 
-    text: qsTr("CPU: %1%").arg(cpuUsage)
+    IconImage {
+        id: cpuIcon
+        implicitSize: Theme.style.barHeight - Theme.style.padding * 4
+        anchors.verticalCenter: parent.verticalCenter
+        source: Quickshell.iconPath("cpu", "processor")
+        smooth: true
+    }
+
+    TextLabel {
+        text: cpuUsage.toFixed(1) + "%";
+        maximumLineCount: 1
+        bold: true
+    }
+
+    Timer {
+        interval: 2000 // Odświeżanie co 2 sekundy
+        running: true
+        repeat: true
+        onTriggered: {
+            statReader.reload();
+        }
+    }
    
 }

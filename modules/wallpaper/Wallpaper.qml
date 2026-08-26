@@ -1,61 +1,59 @@
+import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import QtQuick
 import qs.config
 
 Scope {
-    id:root
-    property string wallpaperPath: Config.modules.wallpaper.path
-    property string wallpaperMode: Config.modules.wallpaper.mode
+    id: root
+
+    // Konwersja ścieżki na format URL (file://) na wypadek braku przedrostka
+    readonly property string wallpaperPath: {
+        let path = Config.modules.wallpaper.path;
+        return (path.startsWith("/") ? "file://" + path : path);
+    }
+    readonly property string wallpaperMode: Config.modules.wallpaper.mode
 
     Variants {
-        id: wallpaperVariants
         model: Quickshell.screens
 
+        delegate: PanelWindow {
+            required property var modelData
+            screen: modelData
 
-        delegate: Component {
-            PanelWindow {
-                id: wallpaperWindow
-                screen: modelData
+            WlrLayershell.layer: WlrLayer.Background
+            WlrLayershell.exclusionMode: ExclusionMode.Ignore
+            WlrLayershell.namespace: "wallpaper"
 
-                WlrLayershell.layer: WlrLayer.Background
-                WlrLayershell.exclusionMode: ExclusionMode.Ignore
-                WlrLayershell.namespace: "wallpaper"
+            anchors {
+                top: true
+                bottom: true
+                left: true
+                right: true
+            }
 
-                anchors {
-                    top: true
-                    bottom: true
-                    left: true
-                    right: true
-                }
+            color: "transparent"
 
-                color: "transparent"
-                exclusionMode: ExclusionMode.Ignore
+            Image {
+                id: wallpaperImage
+                anchors.fill: parent
+                source: root.wallpaperPath
 
-                Image {
-                    id: wallpaperImage
-                    anchors.fill: parent
-                    source: root.wallpaperPath
-                    
-                    sourceSize.width: root.wallpaperMode === "tile" ? 0 : root.width
-                    sourceSize.height: root.wallpaperMode === "tile" ? 0 : root.height
+                sourceSize.width: width
+                sourceSize.height: height
 
-                    fillMode: root.wallpaperMode === "cover" ? Image.PreserveAspectCrop :
-                            root.wallpaperMode === "fill" ? Image.Stretch :
-                            root.wallpaperMode === "fit" ? Image.PreserveAspectFit :
-                            Image.Tile
+                fillMode: root.wallpaperMode === "cover" ? Image.PreserveAspectCrop :
+                          root.wallpaperMode === "fill"  ? Image.Stretch :
+                          root.wallpaperMode === "fit"   ? Image.PreserveAspectFit :
+                          Image.Tile
 
-                    asynchronous: true
+                asynchronous: true
+                mipmap: true
+                smooth: true
 
-                    mipmap: true
-
-                    // cache: false
-                    smooth: true
-                    NumberAnimation on opacity {
-                        from: 0
-                        to: 1
-                        duration: 400
-                    }
+                NumberAnimation on opacity {
+                    from: 0
+                    to: 1
+                    duration: 400
                 }
             }
         }

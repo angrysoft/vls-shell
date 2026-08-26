@@ -89,14 +89,15 @@ PanelWindow {
             Row {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: Theme.style.spacing
-
-                CpuMonitor {
-                }
-                SysTray {
-                }
                 
-                Shutdown {
-                }
+
+                MemMonitor {}
+
+                CpuMonitor {}
+                
+                SysTray {}
+                
+                Shutdown {}
             
             }
         }
