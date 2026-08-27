@@ -9,7 +9,8 @@ Text {
     property alias bold: label.font.bold
     property alias maximumLineCount: label.maximumLineCount
     property int maxWidth: implicitWidth + 1
-    anchors.verticalCenter: parent.verticalCenter
+    // property int implicitHeight: label.implicitHeight
+    // anchors.verticalCenter: parent.verticalCenter
     color: Theme.colors.on_surface
     font.family: Theme.style.fontFamily
     font.pixelSize: Theme.style.fontSize

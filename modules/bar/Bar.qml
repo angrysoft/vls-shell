@@ -15,6 +15,7 @@ PanelWindow {
     readonly property string position: Config.modules.bar.position
     readonly property real calcTopMargin: Theme.style.barHeight / 2 - Theme.style.fontSize + Theme.style.padding
     readonly property real calcSideMargin: calcTopMargin * 4
+    readonly property real widgetSpacing: Theme.style.spacing * 2
 
     anchors {
         top: bar.position !== "bottom"
@@ -44,7 +45,7 @@ PanelWindow {
             radius: implicitHeight / 2
 
             Row {
-                spacing: Theme.style.spacing
+                spacing: bar.widgetSpacing
                 
                 Menu {}
                 Workspaces {}
@@ -68,12 +69,37 @@ PanelWindow {
 
             Row {
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: Theme.style.spacing
+                spacing: bar.widgetSpacing
                 Clock {}
                 
             }
         }
+
+
+
+        WrapperRectangle {
+            id: infoWrapper
+            anchors.right: rightWrapper.left
+            anchors.rightMargin: Theme.style.margin
+            anchors.verticalCenter: parent.verticalCenter
+            color: Theme.colors.surface
+            implicitHeight: Theme.style.barHeight
+            topMargin: bar.calcTopMargin
+            bottomMargin: bar.calcTopMargin
+            leftMargin: bar.calcSideMargin
+            rightMargin: bar.calcSideMargin
+            radius: implicitHeight / 2
+
+            Row {
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: bar.widgetSpacing
+                    MemMonitor {}
+                    CpuMonitor {}
+            }
+        }
+
         // ── Right: System Tray ────────────────────────────────────
+
         WrapperRectangle {
             id: rightWrapper
             anchors.right: parent.right
@@ -88,17 +114,10 @@ PanelWindow {
             radius: implicitHeight / 2
             Row {
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: Theme.style.spacing
-                
-
-                MemMonitor {}
-
-                CpuMonitor {}
-                
+                spacing: bar.widgetSpacing
                 SysTray {}
-                
+                Volume {}
                 Shutdown {}
-            
             }
         }
 }
