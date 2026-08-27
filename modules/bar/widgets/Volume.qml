@@ -41,17 +41,18 @@ Row {
         smooth: true
     }
 
-    HoverHandler {
-        id: hoverHandler
-    }
+    // HoverHandler {
+    //     id: hoverHandler
+    // }
 
-    ToolTip {
-        visible: hoverHandler.hovered
+    // ToolTip {
+    //     visible: hoverHandler.hovered
         
-        // Place immediately above the parent with a 5px gap
-        y: -100
-        text: "Your Hover Title"
-        delay: 400 // Milliseconds before appearing
-        timeout: 5000 // Milliseconds before auto-hiding
-    }
+    //     // Place immediately above the parent with a 5px gap
+    //     y: -100
+    //     text: volume.volumeLevel + "%"
+    //     delay: 400 // Milliseconds before appearing
+    //     timeout: 5000 // Milliseconds before auto-hiding
+    // }
+    
 }
