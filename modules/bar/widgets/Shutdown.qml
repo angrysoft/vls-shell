@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Io
 import Quickshell.Widgets
 import QtQuick
 import qs.components
@@ -28,6 +29,27 @@ IconImage {
         }
     }
 
+    property var actions: ({
+        lock:     ["loginctl", "lock-session"],
+        logout:   ["loginctl", "terminate-user", ""],
+        suspend:  ["systemctl", "suspend"],
+        reboot:   ["systemctl", "reboot"],
+        shutdown: ["systemctl", "poweroff"],
+    })
+
+    function runAction(actionId) {
+        if (!actions[actionId]) {
+            console.warn("Unknown action:", actionId)
+            return
+        }
+        actionProcess.command = actions[actionId]
+        actionProcess.running = true
+    }
+
+    Process {
+        id: actionProcess
+    }
+
     onIsOpenChanged: {
         if (!isOpen) closeTimer.start()
     }
@@ -42,7 +64,7 @@ IconImage {
                 gravity: Edges.Bottom | Edges.Right
             }
             
-            implicitHeight: column.implicitHeight + Theme.style.padding *2
+            implicitHeight: column.implicitHeight + Theme.style.padding * 2
             implicitWidth: implicitHeight
             visible: powerButton.isOpen || closeTimer.running
 
@@ -57,9 +79,11 @@ IconImage {
                 id: powerMenu
                 anchors.fill: parent
                 color: Theme.colors.surface
-                border.color: Theme.colors.outline
-                border.width: Theme.style.borderWidth
-                radius: Theme.style.borderRadius
+                // border.color: Theme.colors.outline
+                // border.width: Theme.style.borderWidth
+                // radius: Theme.style.borderRadius
+                bottomLeftRadius: Theme.style.borderRadius
+                bottomRightRadius: Theme.style.borderRadius
                 implicitHeight: column.implicitHeight + Theme.style.padding * 4
 
                 opacity: 0
@@ -80,14 +104,14 @@ IconImage {
                         from: ""; to: "open"
                         ParallelAnimation {
                             NumberAnimation { target: powerMenu; property: "opacity"; duration: 280; easing.type: Easing.OutCubic }
-                            NumberAnimation { target: slideTransform; property: "y"; duration: 440; easing.type: Easing.OutBack }
+                            NumberAnimation { target: slideTransform; property: "y"; duration: 440; easing.type: Easing.OutCubic }
                         }
                     },
                     Transition {
                         from: "open"; to: ""
                         ParallelAnimation {
                             NumberAnimation { target: powerMenu; property: "opacity"; duration: 240; easing.type: Easing.InCubic }
-                            NumberAnimation { target: slideTransform; property: "y"; duration: 280; easing.type: Easing.InBack }
+                            NumberAnimation { target: slideTransform; property: "y"; duration: 280; easing.type: Easing.InCubic }
                         }
                     }
                 ]
@@ -125,7 +149,7 @@ IconImage {
 
                         TapHandler {
                             onTapped: {
-                                console.log("Clicked:", item.modelData.id)
+                                powerButton.runAction(item.modelData.id)
                                 powerButton.isOpen = false
                                 // TODO: wywołaj akcję
                             }
