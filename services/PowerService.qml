@@ -16,5 +16,13 @@ Singleton {
     readonly property bool isOnBattery: UPower.onBattery
     readonly property bool isPresent: battery?.isPresent ?? false
     readonly property string iconName: battery?.iconName ?? "battery-missing"
+    readonly property string stateRemainingTime: battery?.powerSupply ? formatTime(battery.timeToFull) : (battery?.timeToEmpty > 0 ? formatTime(battery.timeToEmpty) : "")
 
+    function formatTime(seconds) {
+        console.log("Formatting time for seconds:", seconds)
+        if (seconds <= 0) return ""
+        const hours = Math.floor(seconds / 3600)
+        const minutes = Math.floor((seconds % 3600) / 60)
+        return `${hours}h ${minutes}m`
+    }
 }

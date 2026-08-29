@@ -27,4 +27,38 @@ Row {
         source: Quickshell.iconPath(PowerService.iconName)
         smooth: true
     }
+
+    HoverHandler {
+        id: hoverHandler
+    }
+
+    PopupWindow {
+        id: tooltip
+        visible: hoverHandler.hovered
+        
+        // Position relative to the parent item
+        anchor.item: powerStatus
+        // anchor.rect: Qt.rect(powerStatus.x, powerStatus.y, powerStatus.width, powerStatus.height)
+        anchor.edges: Edges.Bottom | Edges.Left
+        anchor.gravity: Edges.Bottom | Edges.Right
+
+        color: "transparent"
+
+        Rectangle {
+            implicitWidth: tipText.implicitWidth + 16
+            implicitHeight: tipText.implicitHeight + 8
+            color: Theme.colors.surface
+            border.color: Theme.colors.outline
+            border.width: 1
+            radius: 4
+
+            Text {
+                id: tipText
+                anchors.centerIn: parent
+                text: PowerService.isPresent ? PowerService.stateRemainingTime : "No battery detected"
+                color: Theme.colors.on_surface
+                font.pixelSize: 12
+            }
+        }
+    }
 }
