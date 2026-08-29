@@ -117,6 +117,7 @@ PanelWindow {
                 spacing: bar.widgetSpacing
                 SysTray {}
                 Volume {}
+                PowerStatus {}
                 Shutdown {}
             }
         }

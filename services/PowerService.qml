@@ -1,0 +1,20 @@
+pragma Singleton
+import Quickshell
+import Quickshell.Services.UPower
+import QtQuick
+
+Singleton {
+    id: root
+// Access the primary composite/system device
+    readonly property var battery: UPower.displayDevice
+
+    // Percentage formatted (0-100)
+    readonly property int percentage: Math.round((battery?.percentage ?? 0) * 100)
+    
+    // State indicators
+    readonly property bool isCharging: battery?.state === UPowerDeviceState.Charging
+    readonly property bool isOnBattery: UPower.onBattery
+    readonly property bool isPresent: battery?.isPresent ?? false
+    readonly property string iconName: battery?.iconName ?? "battery-missing"
+
+}

@@ -95,7 +95,7 @@ Row {
     
     IconImage {
         implicitSize: Theme.style.barHeight - Theme.style.padding * 2
-        source: Quickshell.iconPath("view-close", "gtk-close")
+        source: Quickshell.iconPath("window-close-symbolic")
         smooth: true
         anchors.verticalCenter: parent.verticalCenter
 
@@ -122,6 +122,7 @@ Row {
     }
 
     TextLabel {
+        anchors.verticalCenter: parent.verticalCenter
         text: focusedWindow
         maximumLineCount: 1
         maxWidth: 400

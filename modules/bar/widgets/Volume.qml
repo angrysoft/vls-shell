@@ -9,9 +9,7 @@ import qs.services
 Row {
     id: volume
     height: parent.height
-    anchors.verticalCenter: parent.verticalCenter
     spacing: Theme.style.spacing
-    visible: true
     property real volumeLevel: Math.floor(VolumeService.volume * 100)
     property string volumeIconName: VolumeService.muted ? "audio-volume-muted" : (volumeLevel > 66 ? "audio-volume-high" : (volumeLevel > 33 ? "audio-volume-medium" : "audio-volume-low"))
 
@@ -30,7 +28,7 @@ Row {
         text: volume.volumeLevel + "%"
         anchors.verticalCenter: parent.verticalCenter
         bold: true
-        visible: false
+        visible: true
     }
 
     IconImage {
