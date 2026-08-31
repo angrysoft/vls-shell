@@ -15,9 +15,8 @@ Item {
     PopupWindow {
         id: hintPopup
         visible: hoverHandler.hovered
-        width: hintBackground.implicitWidth
-        height: hintBackground.implicitHeight
-
+        implicitWidth: hintBackground.implicitWidth
+        implicitHeight: hintBackground.implicitHeight
         anchor.item: hint.parent
         anchor.edges: Edges.Bottom | Edges.Left
         anchor.gravity: Edges.Bottom | Edges.Right
@@ -33,6 +32,24 @@ Item {
             border.color: Theme.colors.outline
             border.width: 1
             radius: Theme.style.borderRadius
+            opacity: 0
+
+            states: State {
+                name: "visible"
+                when: hoverHandler.hovered
+                PropertyChanges { target: hintBackground; opacity: 1 }
+            }
+
+            transitions: [
+                Transition {
+                    from: ""; to: "visible"
+                    NumberAnimation { property: "opacity"; duration: 500; easing.type: Easing.OutCubic }
+                },
+                Transition {
+                    from: "visible"; to: ""
+                    NumberAnimation { property: "opacity"; duration: 500; easing.type: Easing.InCubic }
+                }
+            ]
 
             Text {
                 id: hintText
