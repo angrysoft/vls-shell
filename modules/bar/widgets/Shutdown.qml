@@ -8,7 +8,6 @@ import qs.theme
 IconImage {
     id: powerButton
     implicitSize: Theme.style.barHeight - Theme.style.padding * 2
-    anchors.verticalCenter: parent.verticalCenter
     source: Quickshell.iconPath("system-shutdown-panel")
     smooth: true
     property bool isOpen: false

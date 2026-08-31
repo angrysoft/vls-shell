@@ -6,7 +6,6 @@ import qs.theme
 
 Row {
     spacing: Theme.style.spacing
-    anchors.verticalCenter: parent.verticalCenter
 
     WheelHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad

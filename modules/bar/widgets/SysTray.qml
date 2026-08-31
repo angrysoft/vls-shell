@@ -7,7 +7,6 @@ Row {
     id: tray
     visible: trayItems.count > 0
     height: parent.height
-    anchors.verticalCenter: parent.verticalCenter
     spacing: Theme.style.spacing
 
     Repeater {

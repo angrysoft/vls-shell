@@ -7,10 +7,8 @@ import qs.theme
 
 Row {
     spacing: Theme.style.spacing
-    anchors.verticalCenter: parent.verticalCenter
     property real cpuUsage: 0.0
 
-    // Zmienne do przechowywania wartości z poprzedniej iteracji
     property var prevTotal: 0
     property var prevIdle: 0
 
@@ -63,7 +61,6 @@ Row {
     IconImage {
         id: cpuIcon
         implicitSize: Theme.style.barHeight - Theme.style.padding * 4
-        anchors.verticalCenter: parent.verticalCenter
         source: Quickshell.iconPath("cpu", "processor")
         smooth: true
     }

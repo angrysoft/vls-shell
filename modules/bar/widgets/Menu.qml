@@ -5,7 +5,6 @@ import Quickshell.Widgets
 IconImage {
     id: logo
     implicitSize: parent.implicitHeight
-    anchors.verticalCenter: parent.verticalCenter
     source: Quickshell.iconPath("archlinux-logo", "distributor-logo-archlinux")
     smooth: true
     

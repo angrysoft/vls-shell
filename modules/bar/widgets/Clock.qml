@@ -10,10 +10,10 @@ TextLabel {
         precision: SystemClock.Seconds
     }
 
-    readonly property var plLocale: Qt.locale()
+    readonly property var locale: Qt.locale()
     readonly property string format: Config.modules.bar.clockFormat ? Config.modules.bar.clockFormat : "ddd d MMM hh:mm:ss"
 
-    text: plLocale.toString(clock.date, format)
+    text: locale.toString(clock.date, format)
     
     bold: true
 }

@@ -34,6 +34,9 @@ case "$TARGET" in
     "volume")
         volume
         ;;
+    "launcher")
+        run_ipc launcher toggle
+        ;;
     *)
         echo "Unknown target: $TARGET"
         exit 1

@@ -13,7 +13,6 @@ import qs.components
 
 Row {
     spacing: Theme.style.spacing
-    anchors.verticalCenter: parent.verticalCenter
 
     property string focusedWindow: ""
     property string focusedAppId: ""

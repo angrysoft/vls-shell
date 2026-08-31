@@ -8,6 +8,7 @@ import Quickshell
 import Quickshell.Io
 import qs.config
 import qs.modules.bar
+import qs.modules.launcher
 import qs.modules.wallpaper
 
 
@@ -21,6 +22,8 @@ ShellRoot {
         active: Config.modules.wallpaper.enabled
         component: Wallpaper {}
     }
+
+    Launcher {}
 
     // Component.onCompleted: {
     //     // 1. Odczytaj zmienną LANG z systemu

@@ -5,6 +5,7 @@ import Quickshell.Widgets
 import Quickshell.I3
 import Quickshell.Io
 import QtQuick
+import QtQuick.Layouts
 import qs.theme
 import qs.modules.bar.widgets
 import qs.config
@@ -44,8 +45,7 @@ PanelWindow {
             rightMargin: bar.calcSideMargin
             radius: implicitHeight / 2
 
-            Row {
-                anchors.verticalCenter: parent.verticalCenter
+            RowLayout {
                 spacing: bar.widgetSpacing
                 
                 Menu {}
@@ -68,8 +68,7 @@ PanelWindow {
                 rightMargin: bar.calcSideMargin
                 radius: implicitHeight / 2
 
-            Row {
-                anchors.verticalCenter: parent.verticalCenter
+            RowLayout {
                 spacing: bar.widgetSpacing
                 Clock {}
                 
@@ -91,8 +90,7 @@ PanelWindow {
             rightMargin: bar.calcSideMargin
             radius: implicitHeight / 2
 
-            Row {
-                anchors.verticalCenter: parent.verticalCenter
+            RowLayout {
                 spacing: bar.widgetSpacing
                 MemMonitor {}
                 CpuMonitor {}
@@ -113,10 +111,10 @@ PanelWindow {
             leftMargin: bar.calcSideMargin
             rightMargin: bar.calcSideMargin
             radius: implicitHeight / 2
-            Row {
-                anchors.verticalCenter: parent.verticalCenter
+            RowLayout {
                 spacing: bar.widgetSpacing
                 SysTray {}
+                Brightness {}
                 Volume {}
                 PowerStatus {}
                 Shutdown {}

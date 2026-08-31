@@ -8,7 +8,6 @@ import qs.theme
 Row {
     height: parent.height
     spacing: Theme.style.spacing
-    anchors.verticalCenter: parent.verticalCenter
     property real memUsagePercent: 0.0
     property real usedGiB: 0.0
     property real totalGiB: 0.0
@@ -55,13 +54,11 @@ Row {
     IconImage {
         id: memIcon
         implicitSize: parent.height
-        anchors.verticalCenter: parent.verticalCenter
         source: Quickshell.iconPath("memory", "ram")
         smooth: true
     }
 
     TextLabel {
-        anchors.verticalCenter: parent.verticalCenter
         text: usedGiB.toFixed(1) + " / " + totalGiB.toFixed(1) + " GiB"
         bold: true
     }

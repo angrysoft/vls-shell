@@ -7,6 +7,7 @@ Singleton {
     id: root
 // Access the primary composite/system device
     readonly property var battery: UPower.displayDevice
+    readonly property PowerProfiles profiles: PowerProfiles
 
     // Percentage formatted (0-100)
     readonly property int percentage: Math.round((battery?.percentage ?? 0) * 100)
@@ -33,5 +34,9 @@ Singleton {
         } else {
             return battery?.timeToFull > 0 ? formatTime(battery.timeToFull) : "Calculating..."
         }
+    }
+
+    Component.onCompleted: {
+        console.log("PowerService", profiles.profile)
     }
 }
