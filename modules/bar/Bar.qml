@@ -45,6 +45,7 @@ PanelWindow {
             radius: implicitHeight / 2
 
             Row {
+                anchors.verticalCenter: parent.verticalCenter
                 spacing: bar.widgetSpacing
                 
                 Menu {}
@@ -93,8 +94,8 @@ PanelWindow {
             Row {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: bar.widgetSpacing
-                    MemMonitor {}
-                    CpuMonitor {}
+                MemMonitor {}
+                CpuMonitor {}
             }
         }
 
