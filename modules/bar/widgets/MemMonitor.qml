@@ -13,13 +13,11 @@ Row {
     property real usedGiB: 0.0
     property real totalGiB: 0.0
 
-    // FileView wczytuje i śledzi zawartość pliku
     FileView {
         id: meminfoFile
         path: "/proc/meminfo"
     }
 
-    // Timer wymusza odświeżenie pliku co 2 sekundy
     Timer {
         interval: 5000
         running: true
@@ -64,7 +62,7 @@ Row {
 
     TextLabel {
         anchors.verticalCenter: parent.verticalCenter
-        text: usedGiB.toFixed(1) + " / " + totalGiB.toFixed(1) + " GiB (" + memUsagePercent.toFixed(0) + "%)"
+        text: usedGiB.toFixed(1) + " / " + totalGiB.toFixed(1) + " GiB"
         bold: true
     }
 }
