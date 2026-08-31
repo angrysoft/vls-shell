@@ -13,10 +13,6 @@ Row {
     spacing: Theme.style.spacing
     visible: true
     
-    Component.onCompleted: {
-        console.log("PowerStatus component initialized. Battery present:", PowerService.isPresent, "Percentage:", PowerService.remainingTime, "Charging:", PowerService.battery.powerSupply)
-    }
-
     TextLabel {
         anchors.verticalCenter: parent.verticalCenter
         text: PowerService.isPresent ? PowerService.percentage + "%" : "N/A"
