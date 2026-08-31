@@ -8,12 +8,11 @@ import qs.services
 
 Row {
     id: volume
-    height: parent.height
     spacing: Theme.style.spacing
+    anchors.verticalCenter: parent.verticalCenter
     property real volumeLevel: Math.floor(VolumeService.volume * 100)
     property string volumeIconName: VolumeService.muted ? "audio-volume-muted" : (volumeLevel > 66 ? "audio-volume-high" : (volumeLevel > 33 ? "audio-volume-medium" : "audio-volume-low"))
     property int wheelTick: 0
-
 
     WheelHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
@@ -28,12 +27,12 @@ Row {
             }
         }
     }
-
+    
     TextLabel {
         text: volume.volumeLevel + "%"
         anchors.verticalCenter: parent.verticalCenter
+        maximumLineCount: 1
         bold: true
-        visible: true
     }
 
     IconImage {

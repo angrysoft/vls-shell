@@ -79,9 +79,6 @@ IconImage {
                 id: powerMenu
                 anchors.fill: parent
                 color: Theme.colors.surface
-                // border.color: Theme.colors.outline
-                // border.width: Theme.style.borderWidth
-                // radius: Theme.style.borderRadius
                 bottomLeftRadius: Theme.style.borderRadius
                 bottomRightRadius: Theme.style.borderRadius
                 implicitHeight: column.implicitHeight + Theme.style.padding * 4
@@ -151,7 +148,6 @@ IconImage {
                             onTapped: {
                                 powerButton.runAction(item.modelData.id)
                                 powerButton.isOpen = false
-                                // TODO: wywołaj akcję
                             }
                         }
 
