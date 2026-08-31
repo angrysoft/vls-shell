@@ -16,7 +16,7 @@ Singleton {
     readonly property real volume: sink?.audio?.volume ?? 0
     readonly property bool muted: sink?.audio?.muted ?? false
     readonly property bool ready: sink?.ready ?? false
-    readonly property string sinkName: sink?.description ?? "Unknown"
+    readonly property string name: sink?.description ?? "Unknown"
 
     readonly property real micVolume: source?.audio?.volume ?? 0
     readonly property bool micMuted: source?.audio?.muted ?? false
@@ -74,33 +74,30 @@ Singleton {
 
     // --- IPC ---
     IpcHandler {
-        target: "audio"
+        target: "volume"
 
         function setVolume(value: string): string {
             root.setVolume(parseFloat(value))
             return "ok"
         }
 
-        function increase(step: string): string {
-            root.adjustVolume(parseFloat(step || "0.05"))
-            return "ok"
+        function raise() {
+            root.adjustVolume(0.01)
         }
 
-        function decrease(step: string): string {
-            root.adjustVolume(-parseFloat(step || "0.05"))
-            return "ok"
+        function lower() {
+            root.adjustVolume(-0.01)
         }
 
-        function toggleMute(): string {
+        function muteToggle() {
             root.toggleMute()
-            return "ok"
         }
 
         function status(): string {
             return JSON.stringify({
                 volume: root.volume,
                 muted: root.muted,
-                sink: root.sinkName
+                sink: root.name
             })
         }
     }
