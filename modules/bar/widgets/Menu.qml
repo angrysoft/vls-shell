@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
+import qs.services
 
 IconImage {
     id: logo
@@ -12,7 +13,7 @@ IconImage {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onTapped:(eventPoint, button) => {
             if (button === Qt.LeftButton) {
-                console.log("Arch Linux logo left clicked")
+                LauncherService.toggle()
             } else if (button === Qt.RightButton) {
                 console.log("Arch Linux logo right clicked")
             }
