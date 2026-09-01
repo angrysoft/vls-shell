@@ -9,13 +9,10 @@ Singleton {
     property bool launcherVisible: false
     property var filtered: []
     property int selectedIndex: 0
-    property string searchText 
 
     function show() {
         launcherVisible = true
-        searchText = ""
         updateFilter("")
-        // searchField.forceActiveFocus()
     }
 
     function hide() {
