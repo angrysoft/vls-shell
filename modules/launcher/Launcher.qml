@@ -50,6 +50,11 @@ PanelWindow {
         color: Theme.colors.surface
         border.color: Theme.colors.outline
         border.width: 1
+        scale: root.launcherVisible ? 1.0 : 0.55
+        opacity: root.launcherVisible ? 1.0 : 0.0
+
+        Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
+        Behavior on opacity { NumberAnimation { duration: 120 } }
 
         MouseArea { anchors.fill: parent } // pochłania klik, nie zamyka
 

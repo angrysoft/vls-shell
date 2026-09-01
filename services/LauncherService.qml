@@ -9,6 +9,16 @@ Singleton {
     property bool launcherVisible: false
     property var filtered: []
     property int selectedIndex: 0
+    property string query: ""
+
+    Connections {
+        target: DesktopEntries.applications
+
+        function onValuesChanged() {
+            if (launcherService.launcherVisible)
+                launcherService.updateFilter(launcherService.query)
+        }
+    }
 
     function show() {
         launcherVisible = true
@@ -24,10 +34,11 @@ Singleton {
     }
 
     function updateFilter(query) {
+        launcherService.query = query
         selectedIndex = 0
         const apps = DesktopEntries.applications.values
         if (!query) {
-            filtered = apps.slice(0, 50)
+            filtered = apps.slice()
             return
         }
         const q = query.toLowerCase()
