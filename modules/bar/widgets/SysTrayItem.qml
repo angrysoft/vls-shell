@@ -28,7 +28,6 @@ Item {
                     item.activate();
                     break;
                 case Qt.RightButton:
-                    console.log("Right click on tray item:", item.hasMenu, "menu:", item.menu);
                     if (item.hasMenu) {
                         menuAnchor.open();
                     }

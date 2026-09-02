@@ -57,7 +57,6 @@ Row {
 
     function resolveIcon(appId) {
         if (!appId) return "application-x-executable"
-        // console.log("Resolving icon for appId:", appId)
         var map = {
             "code":               "vscode",
             "org.gnome.boxes":    "gnome-boxes",

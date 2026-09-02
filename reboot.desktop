@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Reboot
+Name[en_US]=Reboot
+Name[pl_PL]=Uruchom ponownie
+GenericName=Reboot computer
+Comment=Reboot computer
+Exec=systemctl reboot
+Icon=system-reboot
+Terminal=false
+Type=Application
+Categories=Application;Utility;

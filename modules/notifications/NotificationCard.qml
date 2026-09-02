@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.Notifications
 import qs.theme
+import qs.components
 
 Item {
     id: root
@@ -22,7 +23,6 @@ Item {
         onTriggered: root.notification.expire()
     }
 
-    // wejście/wyjście — analogicznie jak Twój power menu popup
     NumberAnimation on opacity {
         from: 0; to: 1; duration: 200
     }
@@ -30,7 +30,7 @@ Item {
     Rectangle {
         id: card
         width: parent.width
-        radius: Theme.style.borderRadius
+        radius: Theme.style.dialogRadius
         color: Theme.colors.surface
         border.color: {
             switch (root.notification.urgency) {
@@ -63,7 +63,7 @@ Item {
 
                 ColumnLayout {
                     Layout.fillWidth: true
-                    spacing: 2
+                    spacing: Theme.style.spacing
 
                     Text {
                         text: root.notification.summary
@@ -91,20 +91,9 @@ Item {
 
                 Repeater {
                     model: root.notification.actions
-                    delegate: Rectangle {
+                    Button {
                         required property var modelData
-                        implicitHeight: 28
-                        implicitWidth: label.implicitWidth + 16
-                        radius: Theme.style.borderRadius
-                        color: Theme.colors.surface_container
-
-                        Text {
-                            id: label
-                            anchors.centerIn: parent
-                            text: modelData.text
-                            color: Theme.colors.on_surface
-                        }
-
+                        label: modelData.text
                         MouseArea {
                             anchors.fill: parent
                             onClicked: modelData.invoke()

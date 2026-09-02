@@ -19,7 +19,6 @@ Singleton {
                 const name = text.trim()
                 if (name.length > 0) {
                     root.device = name
-                    console.log("BrightnessService: detected backlight device:", name)
                 } else {
                     console.warn("BrightnessService: no backlight device found")
                 }

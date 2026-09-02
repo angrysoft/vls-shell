@@ -30,6 +30,24 @@ volume() {
     esac
 }
 
+function notifications() {
+    case "$CMD" in
+    "clearHistory")
+            run_ipc notifications clearHistory
+            ;;
+    "markAllRead")
+            run_ipc notifications markAllRead
+            ;;
+    "status")
+            run_ipc notifications status
+            ;;
+        *)
+            echo "Unknown command for notifications: $CMD"
+            exit 1
+            ;;
+    esac
+}
+
 case "$TARGET" in
     "volume")
         volume
@@ -37,8 +55,12 @@ case "$TARGET" in
     "launcher")
         run_ipc launcher toggle
         ;;
+    "notifications")
+        notifications
+        ;;
     *)
-        echo "Unknown target: $TARGET"
+        echo "Unknown command for target: $TARGET"
         exit 1
         ;;
 esac
+   

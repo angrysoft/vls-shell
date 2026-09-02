@@ -15,8 +15,8 @@ PanelWindow {
     exclusiveZone: 0
     color: "transparent"
 
-    anchors { top: true; right: true }
-    margins { top: 12; right: 12 }
+    anchors { top: true;  }
+    margins { top: 12; }
 
     implicitWidth: 360
     implicitHeight: column.implicitHeight

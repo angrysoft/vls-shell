@@ -71,6 +71,7 @@ PanelWindow {
             RowLayout {
                 spacing: bar.widgetSpacing
                 Clock {}
+                NotifyHist {}
                 
             }
         }
@@ -116,6 +117,7 @@ PanelWindow {
                 SysTray {}
                 Brightness {}
                 Volume {}
+                UpdatesStatus {}
                 PowerStatus {}
                 Shutdown {}
             }

@@ -4,16 +4,17 @@ import Quickshell.Widgets
 import qs.services
 
 IconImage {
-    id: logo
+    id: notify
     implicitSize: parent.implicitHeight
-    source: Quickshell.iconPath("archlinux-logo", "distributor-logo-archlinux")
+    source: Quickshell.iconPath(NotificationsService.hasNotifications ? "notification-new-symbolic" : "notification-symbolic")
     smooth: true
+    // visible: NotificationsService.hasNotifications
     
     TapHandler {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onTapped:(eventPoint, button) => {
             if (button === Qt.LeftButton) {
-                LauncherService.toggle()
+                console.log("logo left clicked")
             } else if (button === Qt.RightButton) {
                 console.log("logo right clicked")
             }

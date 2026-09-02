@@ -20,7 +20,6 @@ Singleton {
     readonly property string remainingTime: isOnBattery ? (battery?.timeToEmpty > 0 ? formatTime(battery.timeToEmpty) : "") : formatTime(battery.timeToFull)
 
     function formatTime(seconds) {
-        console.log("Formatting time for seconds:", seconds)
         if (seconds <= 0) return ""
         const hours = Math.floor(seconds / 3600)
         const minutes = Math.floor((seconds % 3600) / 60)

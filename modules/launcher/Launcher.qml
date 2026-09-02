@@ -46,10 +46,10 @@ PanelWindow {
         // anchors.horizontalCenter: parent.horizontalCenter
         anchors.centerIn: parent
         y: 120
-        radius: 14
+        radius: Theme.style.dialogRadius
         color: Theme.colors.surface
         border.color: Theme.colors.outline
-        border.width: 1
+        border.width: Theme.style.borderWidth
         scale: root.launcherVisible ? 1.0 : 0.55
         opacity: root.launcherVisible ? 1.0 : 0.0
 

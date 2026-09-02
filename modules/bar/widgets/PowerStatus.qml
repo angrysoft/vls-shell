@@ -10,12 +10,11 @@ Row {
     id: powerStatus
     height: parent.height
     spacing: Theme.style.spacing
-    visible: true
+    visible: PowerService.isPresent
     
     TextLabel {
         text: PowerService.isPresent ? PowerService.percentage + "%" : "N/A"
         bold: true
-        visible: PowerService.isPresent
     }
     
     IconImage {

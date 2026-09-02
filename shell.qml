@@ -9,6 +9,7 @@ import Quickshell.Io
 import qs.config
 import qs.modules.bar
 import qs.modules.launcher
+import qs.modules.notifications
 import qs.modules.wallpaper
 
 
@@ -22,6 +23,8 @@ ShellRoot {
         active: Config.modules.wallpaper.enabled
         component: Wallpaper {}
     }
+
+    Notifications {}
 
     Launcher {}
 

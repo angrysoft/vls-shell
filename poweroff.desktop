@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Poweroff
+GenericName=Power Off
+Comment=Poweroff computer
+Exec=systemctl poweroff
+Icon=system-shutdown
+Terminal=false
+Type=Application
+Categories=Application;Utility;
