@@ -10,6 +10,8 @@ Row {
     id: brightness
     spacing: Theme.style.spacing
     property real brightnessLevel: Math.floor(BrightnessService.percent * 100)
+    visible: BrightnessService.device.length > 0
+
     TextLabel {
         text: brightness.brightnessLevel + "%"
         maximumLineCount: 1

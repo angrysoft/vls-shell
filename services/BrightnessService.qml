@@ -28,7 +28,6 @@ Singleton {
 
     Component.onCompleted: {
         detectDevice.running = true
-
     }
 
     FileView {
