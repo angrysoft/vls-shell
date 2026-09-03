@@ -1,0 +1,6 @@
+[Unit]
+Description=Update Check Service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/vls --check-updates
