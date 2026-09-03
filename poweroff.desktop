@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Poweroff
+Name[pl_PL]=Wyłącz komputer
 GenericName=Power Off
 Comment=Poweroff computer
-Exec=systemctl poweroff
+Exec=systemctl poweroff:wq
+
 Icon=system-shutdown
 Terminal=false
 Type=Application
