@@ -10,6 +10,7 @@ Singleton {
     property int current: 0
     property int max: 1
     readonly property real percent: max > 0 ? current / max : 0
+    readonly property bool isEnabled: device.length > 0
 
     Process {
         id: detectDevice

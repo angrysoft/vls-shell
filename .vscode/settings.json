@@ -1,8 +1,12 @@
 {
     "cSpell.words": [
+        "dpms",
         "Layershell",
         "Pipewire",
-        "Quickshell"
+        "poweroff",
+        "Quickshell",
+        "swaymsg",
+        "vlsmsg"
     ],
     "[qml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",

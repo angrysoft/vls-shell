@@ -11,7 +11,8 @@ import qs.modules.bar
 import qs.modules.launcher
 import qs.modules.notifications
 import qs.modules.wallpaper
-
+import qs.modules.session
+import qs.modules.lock
 
 ShellRoot {
     LazyLoader {
@@ -27,6 +28,16 @@ ShellRoot {
     Notifications {}
 
     Launcher {}
+
+    // LazyLoader {
+    //     active: Config.modules.session.enabled
+    //     component: Session {}
+    // }
+
+    LazyLoader {
+        active: Config.modules.session.enabled
+        component: ScreenLock {}
+    }
 
     // Component.onCompleted: {
     //     // 1. Odczytaj zmienną LANG z systemu

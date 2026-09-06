@@ -19,6 +19,7 @@ Singleton {
             property JsonObject modules: JsonObject {
                 property BarConfig bar: BarConfig {}
                 property WallpaperConfig wallpaper: WallpaperConfig {}
+                property SessionConfig session: SessionConfig {}
             }
         }
     }

@@ -14,6 +14,9 @@ import (
 )
 
 const cmdCall = 0x03
+const isVoidLabel = "IsVoid:"
+const resultLabel = "Result:"
+const errorLabel = "Error:"
 
 func Call(socketPath, target, function string, args []string) (result string, isVoid bool, err error) {
 	conn, err := net.DialTimeout("unix", socketPath, 2*time.Second)
@@ -118,12 +121,14 @@ func main() {
 		handleLauncher(socketPath, args)
 	case "notification":
 		handleNotification(socketPath, args)
+	case "session":
+		handleSession(socketPath, args)
 	default:
 		fmt.Println("Unknown command:", command)
 	}
 }
 
-func handleLauncher(socketPath string, args []string) {
+func handleLauncher(socketPath string, _ []string) {
 	_, _, err := Call(socketPath, "launcher", "toggle", []string{})
 	if err != nil {
 		fmt.Println("Error calling launcher toggle:", err)
@@ -144,9 +149,9 @@ func handleVolume(socketPath string, args []string) {
 		return
 	}
 	result, isVoid, err := Call(socketPath, "volume", cmd, []string{})
-	fmt.Println("Result:", result)
-	fmt.Println("IsVoid:", isVoid)
-	fmt.Println("Error:", err)
+	fmt.Println(resultLabel, result)
+	fmt.Println(isVoidLabel, isVoid)
+	fmt.Println(errorLabel, err)
 }
 
 func handleNotification(socketPath string, args []string) {
@@ -163,7 +168,26 @@ func handleNotification(socketPath string, args []string) {
 		return
 	}
 	result, isVoid, err := Call(socketPath, "notification", cmd, []string{})
-	fmt.Println("Result:", result)
-	fmt.Println("IsVoid:", isVoid)
-	fmt.Println("Error:", err)
+	fmt.Println(resultLabel, result)
+	fmt.Println(isVoidLabel, isVoid)
+	fmt.Println(errorLabel, err)
+}
+
+func handleSession(socketPath string, args []string) {
+	cmd := ""
+	switch args[0] {
+	case "lock":
+		cmd = "lock"
+	case "suspend":
+		cmd = "suspend"
+	case "powerOff":
+		cmd = "powerOff"
+	default:
+		fmt.Println("Unknown session command:", args[0])
+		return
+	}
+	result, isVoid, err := Call(socketPath, "session", cmd, []string{})
+	fmt.Println(resultLabel, result)
+	fmt.Println(isVoidLabel, isVoid)
+	fmt.Println(errorLabel, err)
 }

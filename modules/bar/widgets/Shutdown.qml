@@ -4,6 +4,7 @@ import Quickshell.Widgets
 import QtQuick
 import qs.components
 import qs.theme
+import qs.services
     
 IconImage {
     id: powerButton
