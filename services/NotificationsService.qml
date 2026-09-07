@@ -87,6 +87,10 @@ Singleton {
         notification.dismiss()
     }
 
+    function getHistory() {
+        return historyAdapter.entries
+    }
+
     FileView {
         id: fileView
         path: root.historyFileReady ? Quickshell.env("HOME") + "/.local/state/vls-shell/notifications.json" : ""

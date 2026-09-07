@@ -10,6 +10,7 @@ Singleton {
 
     property bool inhibited: false
     property bool isLocked: false
+    property bool screensOff: false
     
 
 
@@ -20,7 +21,10 @@ Singleton {
         respectInhibitors: true
         onIsIdleChanged: {
             if (isIdle) dimBacklight()
-            else restoreBacklight()
+            else {
+                restoreBacklight()
+                restoreMonitors()
+            }
         }
     }
 
@@ -35,7 +39,6 @@ Singleton {
         }
     }
 
-    // dłuższy -> zablokowanie sesji
     IdleMonitor {
         id: lockMonitor
         enabled: Config.modules.session.lockEnabled
@@ -46,11 +49,11 @@ Singleton {
                 lockSession()
             } else {
                 offMonitorOnLock.stop()
+                restoreMonitors()
             }
         }
     }
 
-    // najdłuższy -> DPMS off / suspend
     IdleMonitor {
         id: suspendMonitor
         enabled: Config.modules.session.suspendEnabled
@@ -58,63 +61,56 @@ Singleton {
         respectInhibitors: true
         onIsIdleChanged: {
             if (isIdle) suspendSystem()
+            
         }
     }
 
     Timer {
         id: offMonitorOnLock
-        interval: 30000 // 30 seconds in milliseconds
+        interval: 15000 // 15 seconds in milliseconds
         repeat: false
         onTriggered: offMonitors()
     }
 
     Component.onCompleted: {
-        console.log("SessionService initialized", Config.modules.session.lockTimeout)
+        console.log("SessionService lock", Config.modules.session.lockEnabled)
+        console.log("SessionService dim", Config.modules.session.dimmTimeout)
+        console.log("SessionService off", Config.modules.session.offMonitorsTimeout)
+        console.log("SessionService suspend", Config.modules.session.suspendTimeout)
+        console.log("SessionService inhibited", inhibited)
+        console.log("SessionService screens", Config.modules.session.offMonitorsEnabled)
     }
 
     function offMonitors() {
-        // cmd.command = ["swaymsg", "output * dpms off"]
-        // cmd.running = true
-        for (let i = 0; i < Quickshell.screens.length; i++) {
-            let output = Quickshell.screens[i]
-            if (output && output.wayland) {
-                output.wayland.powerSave = true
-            }
-        }
+        console.log("Turning off monitors")
+        if (screensOff) return
+        cmd.command = ["swaymsg", "output * power off"]
+        cmd.running = true
+        screensOff = true
     }
 
 
     function restoreMonitors() {
-        // cmd.command = ["swaymsg", "output * dpms on"]
-        // cmd.running = true
-        for (let i = 0; i < Quickshell.screens.length; i++) {
-            let output = Quickshell.screens[i]
-            if (output && output.wayland) {
-                output.wayland.powerSave = false
-            }
-        }
+        console.log("Restoring monitors")
+        if (!screensOff) return
+        cmd.command = ["swaymsg", "output * power on"]
+        cmd.running = true
+        screensOff = false
     }
 
     function dimBacklight() {
-        // cmd.command = ["swaymsg", "output * dpms off"]
-        // cmd.running = true
         console.log("Dimming backlight")
     }
 
 
     function restoreBacklight() {
-        // cmd.command = ["swaymsg", "output * dpms on"]
-        // cmd.running = true
         console.log("Restoring backlight")
     }
 
     function lockSession() {
-        // cmd.command = ["loginctl", "lock-session"]
-        // cmd.command = ["gtklock", "-d"]
-        // cmd.running = true
         console.log("Locking session")
         isLocked = true
-        offMonitorOnLock.start()
+        offMonitorOnLock.restart()
     }
 
     function suspendSystem() {

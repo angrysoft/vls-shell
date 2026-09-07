@@ -19,10 +19,10 @@ WlSessionLock {
         id: pam
         config: "veles-shell-lock"  // patrz niżej: /etc/pam.d/veles-shell-lock
 
-        onPamMessage: {
-            // wiadomości typu "Password: " albo błędy — pokaż w UI
-            console.log("PAM message:", message)
-        }
+        // onPamMessage: {
+        //     // wiadomości typu "Password: " albo błędy — pokaż w UI
+        //     console.log("PAM message:", message)
+        // }
 
         onResponseRequiredChanged: {
             if (pam.responseRequired) {
@@ -31,7 +31,7 @@ WlSessionLock {
         }
 
         onCompleted: (result) => {
-            console.log("PAM authentication completed with result:", result)
+            // console.log("PAM authentication completed with result:", result)
             if (result === PamResult.Success) {
                 SessionService.isLocked = false;
             } else {
@@ -41,10 +41,11 @@ WlSessionLock {
             }
         }
     }
-        // to renderuje się osobno na KAŻDYM monitorze
         Rectangle {
+            id: background
             anchors.fill: parent
             color: Theme.colors.surface
+
 
             Column {
                 anchors.centerIn: parent
@@ -111,6 +112,10 @@ WlSessionLock {
                     // Keys.onReturnPressed: tryUnlock(text)
 
                     Keys.onEscapePressed: passwordField.clear()
+
+                    // Keys.onPressed: (event) => {
+                    //     SessionService.restoreMonitors()
+                    // }
                     // Keys.onEscapePressed: {
                     //     SessionService.isLocked = false
                     // }
@@ -121,4 +126,5 @@ WlSessionLock {
 
         }
     }
+
 }

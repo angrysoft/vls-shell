@@ -54,64 +54,65 @@ IconImage {
         if (!isOpen) closeTimer.start()
     }
         
-        PopupWindow {
-            id: popup
-            color: "transparent"
-            anchor {
-                //window: bar
-                item: powerButton
-                edges: Edges.Bottom | Edges.Left
-                gravity: Edges.Bottom | Edges.Right
+    PopupWindow {
+        id: popup
+        color: "transparent"
+        anchor {
+            //window: bar
+            item: powerButton
+            edges: Edges.Bottom | Edges.Left
+            gravity: Edges.Bottom | Edges.Right
+        }
+        
+        implicitHeight: column.implicitHeight + Theme.style.padding * 2
+        implicitWidth: implicitHeight
+        visible: powerButton.isOpen || closeTimer.running
+
+
+        Timer {
+            id: closeTimer
+            interval: 320
+            running: false
+        }
+
+
+        Rectangle {
+            id: powerMenu
+            anchors.fill: parent
+            color: Theme.colors.surface
+            bottomLeftRadius: Theme.style.borderRadius
+            bottomRightRadius: Theme.style.borderRadius
+            implicitHeight: column.implicitHeight + Theme.style.padding * 4
+
+            opacity: 0
+            transform: Translate {
+                id: slideTransform
+                y: -powerMenu.implicitHeight / 2
             }
-            
-            implicitHeight: column.implicitHeight + Theme.style.padding * 2
-            implicitWidth: implicitHeight
-            visible: powerButton.isOpen || closeTimer.running
 
-             Timer {
-                id: closeTimer
-                interval: 320
-                running: false
+            states: State {
+                name: "open"
+                when: powerButton.isOpen
+                PropertyChanges { target: powerMenu; opacity: 1; }
+                PropertyChanges { target: slideTransform; y: 0; }
             }
 
-
-            Rectangle {
-                id: powerMenu
-                anchors.fill: parent
-                color: Theme.colors.surface
-                bottomLeftRadius: Theme.style.borderRadius
-                bottomRightRadius: Theme.style.borderRadius
-                implicitHeight: column.implicitHeight + Theme.style.padding * 4
-
-                opacity: 0
-                transform: Translate {
-                    id: slideTransform
-                    y: -powerMenu.implicitHeight / 2
-                }
-
-                states: State {
-                    name: "open"
-                    when: powerButton.isOpen
-                    PropertyChanges { target: powerMenu; opacity: 1; }
-                    PropertyChanges { target: slideTransform; y: 0; }
-                }
-
-                transitions: [
-                    Transition {
-                        from: ""; to: "open"
-                        ParallelAnimation {
-                            NumberAnimation { target: powerMenu; property: "opacity"; duration: 280; easing.type: Easing.OutCubic }
-                            NumberAnimation { target: slideTransform; property: "y"; duration: 440; easing.type: Easing.OutCubic }
-                        }
-                    },
-                    Transition {
-                        from: "open"; to: ""
-                        ParallelAnimation {
-                            NumberAnimation { target: powerMenu; property: "opacity"; duration: 240; easing.type: Easing.InCubic }
-                            NumberAnimation { target: slideTransform; property: "y"; duration: 280; easing.type: Easing.InCubic }
-                        }
+            transitions: [
+                Transition {
+                    from: ""; to: "open"
+                    ParallelAnimation {
+                        NumberAnimation { target: powerMenu; property: "opacity"; duration: 280; easing.type: Easing.OutCubic }
+                        NumberAnimation { target: slideTransform; property: "y"; duration: 440; easing.type: Easing.OutCubic }
                     }
-                ]
+                },
+                Transition {
+                    from: "open"; to: ""
+                    ParallelAnimation {
+                        NumberAnimation { target: powerMenu; property: "opacity"; duration: 240; easing.type: Easing.InCubic }
+                        NumberAnimation { target: slideTransform; property: "y"; duration: 280; easing.type: Easing.InCubic }
+                    }
+                }
+            ]
 
             Column {
                 id: column
@@ -132,49 +133,49 @@ IconImage {
                     ]
 
                     delegate: Rectangle {
-                        id: item
-                        required property var modelData
-                        required property int index
+                                id: item
+                                required property var modelData
+                                required property int index
 
-                        width: column.width
-                        height: Theme.style.barHeight - Theme.style.padding * 2
-                        radius: Theme.style.borderRadius
-                        color: itemHover.hovered ? Theme.colors.surface_container : "transparent"
+                                width: column.width
+                                height: Theme.style.barHeight - Theme.style.padding * 2
+                                radius: Theme.style.borderRadius
+                                color: itemHover.hovered ? Theme.colors.surface_container : "transparent"
 
 
-                        HoverHandler { id: itemHover }
+                                HoverHandler { id: itemHover }
 
-                        TapHandler {
-                            onTapped: {
-                                powerButton.runAction(item.modelData.id)
-                                powerButton.isOpen = false
+                                TapHandler {
+                                    onTapped: {
+                                        powerButton.runAction(item.modelData.id)
+                                        powerButton.isOpen = false
+                                    }
+                                }
+
+                                Row {
+                                    anchors {
+                                        left: parent.left
+                                        verticalCenter: parent.verticalCenter
+                                        leftMargin: Theme.style.padding
+                                        rightMargin: Theme.style.padding
+
+                                    }
+                                    spacing: Theme.style.spacing
+
+                                    IconImage {
+                                        implicitSize: parent.implicitHeight
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        source: Quickshell.iconPath(item.modelData.icon)
+                                    }
+
+                                    Text {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: item.modelData.label
+                                        color: Theme.colors.on_surface
+                                    }
+                                }
                             }
-                        }
-
-                        Row {
-                            anchors {
-                                left: parent.left
-                                verticalCenter: parent.verticalCenter
-                                leftMargin: Theme.style.padding
-                                rightMargin: Theme.style.padding
-
-                            }
-                            spacing: Theme.style.spacing
-
-                            IconImage {
-                                implicitSize: parent.implicitHeight
-                                anchors.verticalCenter: parent.verticalCenter
-                                source: Quickshell.iconPath(item.modelData.icon)
-                            }
-
-                            Text {
-                                anchors.verticalCenter: parent.verticalCenter
-                                text: item.modelData.label
-                                color: Theme.colors.on_surface
-                            }
-                        }
                     }
-                }
             }
         }
     }
