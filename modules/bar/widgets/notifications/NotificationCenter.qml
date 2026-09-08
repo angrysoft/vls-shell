@@ -60,7 +60,6 @@ IconImage {
             anchors.fill: parent
             color: Theme.colors.surface
             radius: Theme.style.dialogRadius
-            implicitHeight: notifyWrapper.implicitHeight + Theme.style.padding * 4
 
             ColumnLayout {
                 id: notifyColumn
