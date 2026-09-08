@@ -12,7 +12,7 @@ Singleton {
 
     FileView {
         id: updatesFileView
-        path: "/var/log/updates.json"
+        path: "/tmp/updates.json"
         watchChanges: true
         onFileChanged: reload()
 

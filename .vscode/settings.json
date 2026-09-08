@@ -1,15 +1,22 @@
 {
-    "cSpell.words": [
-        "dpms",
-        "Layershell",
-        "Pipewire",
-        "poweroff",
-        "Quickshell",
-        "swaymsg",
-        "vlsmsg"
-    ],
-    "[qml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.words": [
+    "dpms",
+    "Flexbox",
+    "Layershell",
+    "Pipewire",
+    "poweroff",
+    "Quickshell",
+    "swaymsg",
+    "vlsmsg"
+  ],
+  "[qml]": {
+    "editor.defaultFormatter": "theqtcompany.qt-qml",
     "editor.formatOnSave": true
-}
+  },
+  "qt-qml.qmlls.additionalImportPaths": [
+    "/usr/lib/qt6/qml",
+    "${workspaceFolder}"
+  ],
+  "qt-qml.qmlls.customExePath": "/usr/lib/qt6/bin/qmlls",
+  "makefile.configureOnOpen": false
 }

@@ -4,11 +4,12 @@ import qs.theme
 
 Rectangle {
     id: button
-    required property string  label
+    required property string label
+    property bool disabled: true
     implicitHeight: 32
     implicitWidth: Math.max(100, labelText.implicitWidth + Theme.style.margin)
     radius: implicitHeight / 2
-    color: Theme.colors.primary
+    color: button.disabled ? Theme.colors.surface_bright : Theme.colors.primary_container
 
     Text {
         id: labelText

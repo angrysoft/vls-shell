@@ -82,6 +82,7 @@ Singleton {
 			property int barHeight: 40
 			property int borderRadius: 8
 			property int dialogRadius: 16
+			property int dialogPadding: 16
 			property int borderWidth: 1
 			property string barBackgroundColor: "transparent"
 			property int margin: 8

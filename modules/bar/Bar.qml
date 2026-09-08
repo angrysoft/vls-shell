@@ -8,6 +8,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.theme
 import qs.modules.bar.widgets
+import qs.modules.bar.widgets.notifications
 import qs.config
 
 
@@ -71,7 +72,7 @@ PanelWindow {
             RowLayout {
                 spacing: bar.widgetSpacing
                 Clock {}
-                NotifyHist {}
+                NotificationCenter {}
                 
             }
         }
