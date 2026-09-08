@@ -76,13 +76,14 @@ IconImage {
                     }
 
                     Button {
+                        id: clearAllButton
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         label: "Clear All"
                         disabled: !NotificationsService.hasHistory()
                         TapHandler {
                             acceptedButtons: Qt.LeftButton
                             onTapped: (eventPoint, button) => {
-                                if (button === Qt.LeftButton && disabled) {
+                                if (button === Qt.LeftButton && !clearAllButton.disabled) {
                                     NotificationsService.clearHistory();
                                     notifyButton.isOpen = false;
                                 }

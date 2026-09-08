@@ -15,46 +15,52 @@ WlSessionLock {
     locked: SessionService.isLocked
 
     WlSessionLockSurface {
+        id: surface
+
+        readonly property bool isPasswordScreen: surface.screen === Quickshell.screens[0]
+
         PamContext {
-        id: pam
-        config: "veles-shell-lock"  // patrz niżej: /etc/pam.d/veles-shell-lock
+            id: pam
+            config: "veles-shell-lock"  // patrz niżej: /etc/pam.d/veles-shell-lock
 
-        // onPamMessage: {
-        //     // wiadomości typu "Password: " albo błędy — pokaż w UI
-        //     console.log("PAM message:", message)
-        // }
+            // onPamMessage: {
+            //     // wiadomości typu "Password: " albo błędy — pokaż w UI
+            //     console.log("PAM message:", message)
+            // }
 
-        onResponseRequiredChanged: {
-            if (pam.responseRequired) {
-                pam.respond(passwordField.text);
+            onResponseRequiredChanged: {
+                if (pam.responseRequired) {
+                    pam.respond(passwordField.text);
+                }
+            }
+
+            onCompleted: result => {
+                // console.log("PAM authentication completed with result:", result)
+                if (result === PamResult.Success) {
+                  SessionService.isLocked = false;
+                  SessionService.restoreMonitors();
+                } else {
+                    // Failed / Error / MaxTries — pokaż shake, wyczyść pole
+                    passwordField.clear();
+                    // passwordField.showError();
+                }
             }
         }
 
-        onCompleted: (result) => {
-            // console.log("PAM authentication completed with result:", result)
-            if (result === PamResult.Success) {
-                SessionService.isLocked = false;
-            } else {
-                // Failed / Error / MaxTries — pokaż shake, wyczyść pole
-                passwordField.clear();
-                // passwordField.showError();
-            }
-        }
-    }
         Rectangle {
             id: background
             anchors.fill: parent
             color: Theme.colors.surface
 
-
             Column {
                 anchors.centerIn: parent
                 spacing: Theme.style.spacing
+                visible: surface.isPasswordScreen
 
                 TextLabel {
+                    id: clockView
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: Theme.style.fontSize * 6
-                    id: clockView
                     SystemClock {
                         id: clock
                         precision: SystemClock.Seconds
@@ -64,14 +70,14 @@ WlSessionLock {
                     readonly property string format: "hh:mm"
 
                     text: locale.toString(clock.date, format)
-                    
+
                     bold: true
                 }
 
                 TextLabel {
+                    id: dateView
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: Theme.style.fontSize * 2
-                    id: dateView
                     SystemClock {
                         id: dateClock
                         precision: SystemClock.Hours
@@ -81,10 +87,9 @@ WlSessionLock {
                     readonly property string format: "ddd d MMM"
 
                     text: locale.toString(dateClock.date, format)
-                    
+
                     bold: true
                 }
-
 
                 TextField {
                     id: passwordField
@@ -123,8 +128,6 @@ WlSessionLock {
                     Component.onCompleted: passwordField.forceActiveFocus()
                 }
             }
-
         }
     }
-
 }

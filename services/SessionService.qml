@@ -70,7 +70,13 @@ Singleton {
         interval: 15000 // 15 seconds in milliseconds
         repeat: false
         onTriggered: offMonitors()
-    }
+      }
+
+      onIsLockedChanged: {
+        if (!isLocked) {
+            offMonitorOnLock.stop()
+            restoreMonitors()
+        }
 
     Component.onCompleted: {
         console.log("SessionService lock", Config.modules.session.lockEnabled)
@@ -95,6 +101,7 @@ Singleton {
         if (!screensOff) return
         cmd.command = ["swaymsg", "output * power on"]
         cmd.running = true
+        offMonitorOnLock.stop()
         screensOff = false
     }
 
