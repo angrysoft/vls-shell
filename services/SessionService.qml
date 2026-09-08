@@ -77,6 +77,7 @@ Singleton {
             offMonitorOnLock.stop()
             restoreMonitors()
         }
+      }
 
     Component.onCompleted: {
         console.log("SessionService lock", Config.modules.session.lockEnabled)
