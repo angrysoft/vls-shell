@@ -13,6 +13,8 @@ import qs.modules.notifications
 import qs.modules.wallpaper
 import qs.modules.session
 import qs.modules.lock
+import qs.app.calculator
+import qs.services
 
 ShellRoot {
     LazyLoader {
@@ -37,6 +39,13 @@ ShellRoot {
     LazyLoader {
         active: Config.modules.session.enabled
         component: ScreenLock {}
+    }
+
+    LazyLoader {
+        id: calculatorLoader    
+        active: AppService.calculator
+        component: Calculator {
+        }
     }
 
     // Component.onCompleted: {

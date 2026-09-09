@@ -123,6 +123,8 @@ func main() {
 		handleNotification(socketPath, args)
 	case "session":
 		handleSession(socketPath, args)
+	case "app":
+		handleApp(socketPath, args)
 	default:
 		fmt.Println("Unknown command:", command)
 	}
@@ -144,6 +146,8 @@ func handleVolume(socketPath string, args []string) {
 		cmd = "lower"
 	case "muteToggle":
 		cmd = "muteToggle"
+	case "status":
+		cmd = "status"
 	default:
 		fmt.Println("Unknown volume command:", args[0])
 		return
@@ -187,6 +191,38 @@ func handleSession(socketPath string, args []string) {
 		return
 	}
 	result, isVoid, err := Call(socketPath, "session", cmd, []string{})
+	fmt.Println(resultLabel, result)
+	fmt.Println(isVoidLabel, isVoid)
+	fmt.Println(errorLabel, err)
+}
+
+func handleApp(socketPath string, args []string) {
+	cmd := ""
+	var app = []string{}
+	switch args[0] {
+	case "launch":
+		cmd = args[0]
+		if len(args) < 2 {
+			fmt.Println("App name is required for launch command")
+			return
+		}
+		app = []string{args[1]}
+	case "close":
+		cmd = args[0]
+		if len(args) < 2 {
+			fmt.Println("App name is required for close command")
+			return
+		}
+		app = []string{args[1]}
+	case "list":
+		cmd = "list"
+	default:
+		fmt.Println("Unknown app command:", args[0])
+		return
+	}
+
+	fmt.Println("Handling app command:", app)
+	result, isVoid, err := Call(socketPath, "app", cmd, app)
 	fmt.Println(resultLabel, result)
 	fmt.Println(isVoidLabel, isVoid)
 	fmt.Println(errorLabel, err)
