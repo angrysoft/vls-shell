@@ -13,9 +13,7 @@ Item {
     implicitHeight: card.implicitHeight
     Layout.fillWidth: true
 
-    property real timeout: notification.expireTimeout > 0
-        ? notification.expireTimeout
-        : 5000
+    property real timeout: notification.expireTimeout > 0 ? notification.expireTimeout : 5000
 
     Timer {
         running: true
@@ -24,7 +22,9 @@ Item {
     }
 
     NumberAnimation on opacity {
-        from: 0; to: 1; duration: 200
+        from: 0
+        to: 1
+        duration: 200
     }
 
     Rectangle {
@@ -34,9 +34,12 @@ Item {
         color: Theme.colors.surface
         border.color: {
             switch (root.notification.urgency) {
-                case NotificationUrgency.Critical: return Theme.colors.error
-                case NotificationUrgency.Low: return "transparent"
-                default: return Theme.colors.outline
+            case NotificationUrgency.Critical:
+                return Theme.colors.error;
+            case NotificationUrgency.Low:
+                return "transparent";
+            default:
+                return Theme.colors.outline;
             }
         }
         border.width: root.notification.urgency === NotificationUrgency.Low ? 0 : 1
@@ -45,7 +48,10 @@ Item {
 
         ColumnLayout {
             id: content
-            anchors { fill: parent; margins: 12 }
+            anchors {
+                fill: parent
+                margins: 12
+            }
             spacing: Theme.style.spacing
 
             RowLayout {
@@ -53,9 +59,7 @@ Item {
 
                 Image {
                     visible: root.notification.appIcon !== "" || root.notification.image !== ""
-                    source: root.notification.image !== ""
-                        ? root.notification.image
-                        : "image://icon/" + root.notification.appIcon
+                    source: root.notification.image !== "" ? root.notification.image : "image://icon/" + root.notification.appIcon
                     Layout.preferredWidth: 32
                     Layout.preferredHeight: 32
                     fillMode: Image.PreserveAspectFit
@@ -74,13 +78,13 @@ Item {
                     }
                     Text {
                         visible: root.notification.body !== ""
-                        text: root.notification.body
+                        text: root.notification.body.replace(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9a-fA-F]+;)/g, "&amp;")
                         color: Theme.colors.on_surface_variant
                         wrapMode: Text.Wrap
                         Layout.fillWidth: true
                         maximumLineCount: 3
                         elide: Text.ElideRight
-                        textFormat: Text.StyledText // bo bodyMarkupSupported
+                        textFormat: Text.StyledText // bo bodyMarkupSupported, ale escapujemy luźne '&'
                     }
                 }
             }
@@ -111,6 +115,5 @@ Item {
                 }
             }
         }
-
     }
 }

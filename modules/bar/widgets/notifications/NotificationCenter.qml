@@ -38,7 +38,7 @@ IconImage {
             rect.y: bar.height
         }
 
-        implicitHeight: 600
+        implicitHeight: 600 + (PlayerService.hasPlayers ? 200 : 0)
         implicitWidth: 500
         visible: notifyButton.isOpen || closeTimer.running
 
@@ -66,13 +66,15 @@ IconImage {
                 spacing: Theme.style.spacing
                 anchors.fill: parent
 
+                Players {}
+
                 RowLayout {
                     Layout.margins: Theme.style.dialogPadding
 
                     TextLabel {
                         Layout.fillWidth: true
                         text: "Notifications"
-                        font.pixelSize: Theme.style.fontSizeLarge
+                        font.pixelSize: Theme.style.fontSize * 1.2
                     }
 
                     Button {

@@ -43,7 +43,7 @@ Singleton {
         id: lockMonitor
         enabled: Config.modules.session.lockEnabled
         timeout: Config.modules.session.lockTimeout
-        respectInhibitors: true
+        respectInhibitors: false
         onIsIdleChanged: {
             if (isIdle) {
                 lockSession()
@@ -79,14 +79,6 @@ Singleton {
         }
       }
 
-    Component.onCompleted: {
-        console.log("SessionService lock", Config.modules.session.lockEnabled)
-        console.log("SessionService dim", Config.modules.session.dimmTimeout)
-        console.log("SessionService off", Config.modules.session.offMonitorsTimeout)
-        console.log("SessionService suspend", Config.modules.session.suspendTimeout)
-        console.log("SessionService inhibited", inhibited)
-        console.log("SessionService screens", Config.modules.session.offMonitorsEnabled)
-    }
 
     function offMonitors() {
         console.log("Turning off monitors")

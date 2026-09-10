@@ -71,13 +71,13 @@ Item {
                     }
                     Text {
                         visible: root.notification.body !== ""
-                        text: root.notification.body
+                        text: root.notification.body.replace(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9a-fA-F]+;)/g, "&amp;")
                         color: Theme.colors.on_surface_variant
                         wrapMode: Text.Wrap
                         Layout.fillWidth: true
                         maximumLineCount: 3
                         elide: Text.ElideRight
-                        textFormat: Text.StyledText // bo bodyMarkupSupported
+                        textFormat: Text.StyledText // bo bodyMarkupSupported, ale escapujemy luźne '&'
                     }
                 }
             }

@@ -5,13 +5,13 @@ import QtQuick
 
 Singleton {
     id: root
-// Access the primary composite/system device
+    // Access the primary composite/system device
     readonly property var battery: UPower.displayDevice
     readonly property PowerProfiles profiles: PowerProfiles
 
     // Percentage formatted (0-100)
     readonly property int percentage: Math.round((battery?.percentage ?? 0) * 100)
-    
+
     // State indicators
     readonly property bool isCharging: battery?.state === UPowerDeviceState.Charging
     readonly property bool isOnBattery: UPower.onBattery
@@ -20,22 +20,20 @@ Singleton {
     readonly property string remainingTime: isOnBattery ? (battery?.timeToEmpty > 0 ? formatTime(battery.timeToEmpty) : "") : formatTime(battery.timeToFull)
 
     function formatTime(seconds) {
-        if (seconds <= 0) return ""
-        const hours = Math.floor(seconds / 3600)
-        const minutes = Math.floor((seconds % 3600) / 60)
-        return `${hours}h ${minutes}m`
+        if (seconds <= 0)
+            return "";
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        return `${hours}h ${minutes}m`;
     }
 
     function getRemainingTime() {
-        if (!isPresent) return "No battery detected"
+        if (!isPresent)
+            return "No battery detected";
         if (isOnBattery) {
-            return battery?.timeToEmpty > 0 ? formatTime(battery.timeToEmpty) : "Calculating..."
+            return battery?.timeToEmpty > 0 ? formatTime(battery.timeToEmpty) : "Calculating...";
         } else {
-            return battery?.timeToFull > 0 ? formatTime(battery.timeToFull) : "Calculating..."
+            return battery?.timeToFull > 0 ? formatTime(battery.timeToFull) : "Calculating...";
         }
-    }
-
-    Component.onCompleted: {
-        console.log("PowerService", profiles.profile)
     }
 }
