@@ -77,19 +77,15 @@ IconImage {
                         font.pixelSize: Theme.style.fontSize * 1.2
                     }
 
-                    Button {
+                    ButtonFilled {
                         id: clearAllButton
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        label: "Clear All"
-                        disabled: !NotificationsService.hasHistory()
-                        TapHandler {
-                            acceptedButtons: Qt.LeftButton
-                            onTapped: (eventPoint, button) => {
-                                if (button === Qt.LeftButton && !clearAllButton.disabled) {
-                                    NotificationsService.clearHistory();
-                                    notifyButton.isOpen = false;
-                                }
-                            }
+                        text: "Clear All"
+                        enabled: NotificationsService.hasHistory()
+
+                        onClicked: {
+                            NotificationsService.clearHistory();
+                            notifyButton.isOpen = false;
                         }
                     }
                 }

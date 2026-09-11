@@ -2,6 +2,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Controls.Material
 import Quickshell
 import qs.theme
 import qs.services
@@ -167,26 +168,20 @@ FloatingWindow {
                     Repeater {
                         model: ["C", "⌫", "%", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "0", ".", "=", ""]
 
-                        delegate: Button {
+                        delegate: RoundButton {
                             focusPolicy: Qt.NoFocus
                             visible: modelData !== ""
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                             text: modelData
 
-                            background: Rectangle {
-                                radius: Theme.style.borderRadius
-                                color: parent.down ? Theme.colors.surface_bright : Theme.colors.primary_container
-                            }
+                            Material.theme: Material.System // Or Material.Light / Material.Dark
+                            Material.accent: Theme.colors.primary // M3 Primary key color
+                            Material.background: Theme.colors.primary_container // Filled button container color
+                            Material.foreground: Theme.colors.on_primary_container // On-primary text color
+                            Material.elevation: button.down ? 0 : 1
 
-                            contentItem: Text {
-                                text: parent.text
-                                color: parent.down ? Theme.colors.on_primary : Theme.colors.on_primary_container
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                font.pixelSize: 18
-                            }
-
+                            
                             onClicked: {
                                 switch (modelData) {
                                 case "C":

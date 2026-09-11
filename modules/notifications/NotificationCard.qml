@@ -95,9 +95,9 @@ Item {
 
                 Repeater {
                     model: root.notification.actions
-                    Button {
+                    ButtonFilled {
                         required property var modelData
-                        label: modelData.text
+                        text: modelData.text
                         MouseArea {
                             anchors.fill: parent
                             onClicked: modelData.invoke()
