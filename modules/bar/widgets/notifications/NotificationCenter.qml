@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
@@ -69,7 +70,11 @@ IconImage {
                 Players {}
 
                 RowLayout {
-                    Layout.margins: Theme.style.dialogPadding
+                    // Layout.margins: Theme.style.dialogPadding
+                    Layout.fillWidth: true
+                    Layout.leftMargin: Theme.style.dialogPadding
+                    Layout.rightMargin: Theme.style.dialogPadding
+                    Layout.topMargin: Theme.style.dialogPadding
 
                     TextLabel {
                         Layout.fillWidth: true

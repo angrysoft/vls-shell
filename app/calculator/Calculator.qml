@@ -180,7 +180,7 @@ FloatingWindow {
                             Material.background: Theme.colors.primary_container // Filled button container color
                             Material.foreground: Theme.colors.on_primary_container // On-primary text color
                             Material.elevation: button.down ? 0 : 1
-
+                            
                             
                             onClicked: {
                                 switch (modelData) {
