@@ -14,7 +14,7 @@ import qs.config
 
 PanelWindow {
     id: bar
-    screen: Quickshell.screens.find(s => s.name === "eDP-1") ?? Quickshell.screens[0]
+    screen: Quickshell.screens.find(s => s.name === Config.modules.main.screen) ?? Quickshell.screens[0]
     readonly property string position: Config.modules.bar.position
     readonly property real calcTopMargin: Theme.style.barHeight / 2 - Theme.style.fontSize + Theme.style.padding
     readonly property real calcSideMargin: calcTopMargin * 4
@@ -27,6 +27,10 @@ PanelWindow {
         // right: bar.position !== "left"
         left: true
         right: true
+    }
+
+    Component.onCompleted: {
+        console.log("Bar initialized on screen:", bar.screen.name)
     }
 
     implicitHeight: Theme.style.barHeight + Theme.style.padding * 2

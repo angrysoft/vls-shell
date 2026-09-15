@@ -5,11 +5,12 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import qs.services
+import qs.config
 
 PanelWindow {
     id: panel
 
-    screen: Quickshell.screens[0] // albo Twoja logika multi-monitor
+    screen: Quickshell.screens.find(s => s.name === Config.modules.main.screen) ?? Quickshell.screens[0]
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "vls-shell-notifications"
     exclusiveZone: 0

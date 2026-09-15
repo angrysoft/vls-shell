@@ -20,6 +20,7 @@ Singleton {
                 property BarConfig bar: BarConfig {}
                 property WallpaperConfig wallpaper: WallpaperConfig {}
                 property SessionConfig session: SessionConfig {}
+                property MainConfig main: MainConfig {}
             }
         }
     }

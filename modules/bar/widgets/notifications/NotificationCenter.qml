@@ -8,6 +8,7 @@ import Quickshell.Wayland
 import qs.services
 import qs.theme
 import qs.components
+import qs.config
 
 IconImage {
     id: notifyButton
@@ -32,6 +33,7 @@ IconImage {
         id: notifyPopup
         color: "transparent"
         // grabFocus: true
+        screen: Quickshell.screens.find(s => s.name === Config.global.mainScreen) ?? Quickshell.screens[0]
 
         anchor {
             window: bar

@@ -7,17 +7,17 @@ import QtQuick.Controls
 import qs.services
 import qs.theme
 import qs.components
+import qs.config
 
 WlSessionLock {
     id: lock
 
-    // ustawiane np. przez IPC albo sygnał z Twojego Go-backendu (idle/inhibit)
     locked: SessionService.isLocked
 
     WlSessionLockSurface {
         id: surface
 
-        readonly property bool isPasswordScreen: surface.screen === Quickshell.screens[0]
+        readonly property bool isPasswordScreen: surface.screen === (Quickshell.screens.find(s => s.name === Config.modules.main.screen) ?? Quickshell.screens[0])
 
         PamContext {
             id: pam
