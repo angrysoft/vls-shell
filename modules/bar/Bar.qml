@@ -14,6 +14,7 @@ import qs.config
 
 PanelWindow {
     id: bar
+    screen: Quickshell.screens.find(s => s.name === "eDP-1") ?? Quickshell.screens[0]
     readonly property string position: Config.modules.bar.position
     readonly property real calcTopMargin: Theme.style.barHeight / 2 - Theme.style.fontSize + Theme.style.padding
     readonly property real calcSideMargin: calcTopMargin * 4
