@@ -1,19 +1,19 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 import qs.theme
 import qs.services
+import qs.components
 
 PanelWindow {
     id: root
     property bool launcherVisible: LauncherService.launcherVisible
     visible: launcherVisible
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: launcherVisible
-        ? WlrKeyboardFocus.Exclusive
-        : WlrKeyboardFocus.None
+    WlrLayershell.keyboardFocus: launcherVisible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
     exclusiveZone: -1
 
     anchors.top: true
@@ -25,11 +25,11 @@ PanelWindow {
 
     onLauncherVisibleChanged: {
         if (launcherVisible) {
-            searchField.text = ""
-            searchField.forceActiveFocus()
-            visible = true
+            searchField.text = "";
+            searchField.forceActiveFocus();
+            visible = true;
         } else {
-            visible = false
+            visible = false;
         }
     }
 
@@ -53,29 +53,32 @@ PanelWindow {
         scale: root.launcherVisible ? 1.0 : 0.55
         opacity: root.launcherVisible ? 1.0 : 0.0
 
-        Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
-        Behavior on opacity { NumberAnimation { duration: 120 } }
+        Behavior on scale {
+            NumberAnimation {
+                duration: 120
+                easing.type: Easing.OutCubic
+            }
+        }
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 120
+            }
+        }
 
-        MouseArea { anchors.fill: parent } // pochłania klik, nie zamyka
+        MouseArea {
+            anchors.fill: parent
+        } // pochłania klik, nie zamyka
 
         Column {
             anchors.fill: parent
             anchors.margins: 12
             spacing: 8
 
-            TextField {
+            StyledTextField {
                 id: searchField
                 width: parent.width
-                padding: Theme.style.padding
-                font.pixelSize: Theme.style.fontSize
                 placeholderText: qsTr("Search...")
                 focus: launcherVisible
-                color: Theme.colors.on_surface
-
-                background: Rectangle {
-                    border.width: 0
-                    color: "transparent"
-                }
 
                 onTextChanged: LauncherService.updateFilter(text)
 
@@ -99,13 +102,11 @@ PanelWindow {
                     entry: modelData
                     isSelected: index === LauncherService.selectedIndex
                     onClicked: {
-                        LauncherService.selectedIndex = index
-                        LauncherService.launchSelected()
+                        LauncherService.selectedIndex = index;
+                        LauncherService.launchSelected();
                     }
                 }
             }
         }
     }
-
-    
 }

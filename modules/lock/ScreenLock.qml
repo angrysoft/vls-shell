@@ -4,6 +4,7 @@ import Quickshell.Wayland
 import Quickshell.Services.Pam
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 import qs.services
 import qs.theme
 import qs.components
@@ -37,8 +38,8 @@ WlSessionLock {
             onCompleted: result => {
                 // console.log("PAM authentication completed with result:", result)
                 if (result === PamResult.Success) {
-                  SessionService.isLocked = false;
-                  SessionService.restoreMonitors();
+                    SessionService.isLocked = false;
+                    SessionService.restoreMonitors();
                 } else {
                     // Failed / Error / MaxTries — pokaż shake, wyczyść pole
                     passwordField.clear();
@@ -91,26 +92,15 @@ WlSessionLock {
                     bold: true
                 }
 
-                TextField {
+                StyledTextField {
                     id: passwordField
-                    // width: parent.width
                     anchors.horizontalCenter: parent.horizontalCenter
                     implicitWidth: 260
                     implicitHeight: 48
-                    padding: Theme.style.padding
-                    font.pixelSize: Theme.style.fontSize
                     placeholderText: qsTr("Password")
                     focus: true
-                    color: Theme.colors.on_surface
                     echoMode: TextInput.Password
                     passwordCharacter: "*"
-
-                    background: Rectangle {
-                        border.width: Theme.style.borderWidth
-                        border.color: Theme.colors.outline
-                        radius: Theme.style.borderRadius
-                        color: Theme.colors.surface_container
-                    }
 
                     onAccepted: pam.start()
 
