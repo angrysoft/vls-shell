@@ -25,7 +25,6 @@ ShellRoot {
     Material.accent: Theme.colors.primary // M3 Primary key color
     Material.background: Theme.colors.primary_container // Filled button container color
     Material.foreground: Theme.colors.on_primary_container // On-primary text color
-    Material.elevation: button.down ? 0 : 1
 
     LazyLoader {
         active: Config.modules.bar.enabled

@@ -20,7 +20,7 @@ PanelWindow {
     readonly property real calcSideMargin: calcTopMargin * 4
     readonly property real widgetSpacing: Theme.style.spacing * 2
 
-    exclusionMode: ExclusionMode.Exclusive
+    // exclusionMode: ExclusionMode.Exclusive
 
     anchors {
         top: bar.position !== "bottom"

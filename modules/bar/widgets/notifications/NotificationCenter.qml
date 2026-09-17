@@ -33,7 +33,7 @@ IconImage {
         id: notifyPopup
         color: "transparent"
         // grabFocus: true
-        screen: Quickshell.screens.find(s => s.name === Config.modules.main.screen) ?? Quickshell.screens[0]
+        // screen: Quickshell.screens.find(s => s.name === Config.modules.main.screen) ?? Quickshell.screens[0]
 
         anchor {
             window: bar
