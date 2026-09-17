@@ -21,6 +21,7 @@ Singleton {
                 property WallpaperConfig wallpaper: WallpaperConfig {}
                 property SessionConfig session: SessionConfig {}
                 property MainConfig main: MainConfig {}
+                property DockConfig dock: DockConfig {}
             }
         }
     }

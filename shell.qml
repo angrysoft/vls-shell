@@ -14,6 +14,7 @@ import qs.modules.notifications
 import qs.modules.wallpaper
 import qs.modules.session
 import qs.modules.lock
+import qs.modules.dock
 import qs.app.calculator
 import qs.services
 import qs.theme
@@ -40,10 +41,10 @@ ShellRoot {
 
     Launcher {}
 
-    // LazyLoader {
-    //     active: Config.modules.session.enabled
-    //     component: Session {}
-    // }
+    LazyLoader {
+        active: Config.modules.dock.enabled
+        component: Dock {}
+    }
 
     LazyLoader {
         active: Config.modules.session.enabled
