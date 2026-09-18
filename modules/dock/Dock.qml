@@ -3,18 +3,50 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import qs.config
+import qs.theme
 
 Scope {
     id: dockScope
 
-    // Trzymaj tu tylko ID .desktop (nazwa pliku bez rozszerzenia)
-    readonly property var favoriteIds: Config.modules.dock.apps
+    property var favorites: []
 
-    // Rozwiązanie ID -> DesktopEntry (pomijamy brakujące)
-    readonly property var favorites: favoriteIds.map(id => DesktopEntries.byId(id)).filter(entry => entry !== null)
+    function updateFavorites() {
+        var configApps = Config.modules.dock.apps || [];
+        var list = [];
 
-    property bool revealed: true
-    property bool pinnedOpen: false // np. po IPC "show"
+        for (var i = 0; i < configApps.length; i++) {
+            var appId = configApps[i];
+            var entry = DesktopEntries.byId(appId);
+
+            if (entry) {
+                list.push(entry);
+            }
+        }
+        dockScope.favorites = list;
+        return list;
+    }
+
+    Timer {
+        id: updateTimer
+        interval: 50
+        repeat: false
+        onTriggered: dockScope.updateFavorites()
+    }
+
+    Connections {
+        target: DesktopEntries.applications
+
+        function onValuesChanged() {
+            updateTimer.restart();
+        }
+    }
+
+    Component.onCompleted: {
+        updateTimer.restart();
+    }
+
+    property bool revealed: !Config.modules.dock.autoHide
+    property bool autoHide: Config.modules.dock.autoHide
 
     PanelWindow {
         id: dockWindow
@@ -23,19 +55,21 @@ Scope {
         }
         exclusiveZone: 0
         color: "transparent"
+        visible: dockScope.favorites.length > 0
 
-        implicitWidth: Screen.width
-        implicitHeight: 80
+        implicitWidth: dockContainer.implicitWidth
+        // implicitHeight: 200
 
-        // Cienki pasek-wyzwalacz na samej krawędzi ekranu
         MouseArea {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             width: dockContainer.implicitWidth
-            height: dockScope.revealed ? dockContainer.height : 4
+            height: dockScope.revealed ? dockContainer.height : Theme.style.dialogPadding
             hoverEnabled: true
-            // onEntered: hideTimer.stop()
-            onEntered: dockScope.revealed = true
+            onEntered: {
+                hideTimer.stop();
+                dockScope.revealed = true;
+            }
             onExited: hideTimer.restart()
 
             Rectangle {
@@ -44,11 +78,11 @@ Scope {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottomMargin: dockScope.revealed ? 8 : -implicitHeight
                 implicitWidth: dockRow.implicitWidth + 24
-                implicitHeight: 64
-                radius: 18
-                color: "#19120c"
-                border.color: Qt.rgba(1, 1, 1, 0.06)
-                border.width: 1
+                implicitHeight: 64 + Theme.style.dialogPadding
+                radius: Theme.style.dialogRadius
+                color: Theme.colors.surface
+                border.color: Theme.colors.outline
+                border.width: Theme.style.borderWidth
 
                 Behavior on anchors.bottomMargin {
                     NumberAnimation {
@@ -60,7 +94,7 @@ Scope {
                 RowLayout {
                     id: dockRow
                     anchors.centerIn: parent
-                    spacing: 10
+                    spacing: Theme.style.spacing
 
                     Repeater {
                         model: dockScope.favorites
@@ -84,7 +118,7 @@ Scope {
         id: hideTimer
         interval: 600
         onTriggered: {
-            if (!dockScope.pinnedOpen)
+            if (dockScope.autoHide)
                 dockScope.revealed = false;
         }
     }
@@ -93,8 +127,8 @@ Scope {
         target: "dock"
 
         function toggle(): void {
-            dockScope.pinnedOpen = !dockScope.pinnedOpen;
-            dockScope.revealed = dockScope.pinnedOpen;
+            dockScope.autoHide = !dockScope.autoHide;
+            dockScope.revealed = !dockScope.autoHide;
         }
 
         function show(): void {
@@ -103,7 +137,7 @@ Scope {
         }
 
         function hide(): void {
-            dockScope.pinnedOpen = false;
+            dockScope.autoHide = true;
             dockScope.revealed = false;
         }
     }

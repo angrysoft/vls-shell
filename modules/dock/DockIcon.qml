@@ -7,6 +7,7 @@ Item {
     required property string appName
     required property string iconName
     signal clicked()
+    
 
     implicitWidth: 48
     implicitHeight: 48

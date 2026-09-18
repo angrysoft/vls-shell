@@ -6,4 +6,5 @@ JsonObject {
     property int height: 30
     property var widgets: []
     property var apps: []
+    property bool autoHide: false
 }
