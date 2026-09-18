@@ -41,7 +41,6 @@ WlSessionLock {
                     SessionService.restoreMonitors();
                 } else {
                     passwordField.triggerShake();
-                    // passwordField.clear();
                 }
             }
         }
@@ -106,8 +105,6 @@ WlSessionLock {
                         pam.start();
                     }
 
-                    // Keys.onReturnPressed: tryUnlock(text)
-
                     Keys.onEscapePressed: passwordField.clear()
 
                     Component.onCompleted: {
@@ -123,7 +120,6 @@ WlSessionLock {
 
                     property real originX: x
 
-                    // Animacja przesunięcia względem środka
                     SequentialAnimation {
                         id: shakeAnimation
 
