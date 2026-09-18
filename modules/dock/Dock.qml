@@ -7,11 +7,16 @@ import qs.theme
 
 Scope {
     id: dockScope
+    readonly property var apps: Config.modules.dock.apps
+
+    onAppsChanged: {
+        updateTimer.restart();
+    }
 
     property var favorites: []
 
     function updateFavorites() {
-        var configApps = Config.modules.dock.apps || [];
+        var configApps = dockScope.apps || [];
         var list = [];
 
         for (var i = 0; i < configApps.length; i++) {

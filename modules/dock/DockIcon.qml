@@ -1,13 +1,14 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell
+import qs.theme
 
 Item {
     id: root
 
     required property string appName
     required property string iconName
-    signal clicked()
-    
+    signal clicked
 
     implicitWidth: 48
     implicitHeight: 48
@@ -16,7 +17,10 @@ Item {
     scale: hovered ? 1.25 : 1.0
 
     Behavior on scale {
-        NumberAnimation { duration: 140; easing.type: Easing.OutBack }
+        NumberAnimation {
+            duration: 140
+            easing.type: Easing.OutBack
+        }
     }
 
     Image {
@@ -34,11 +38,15 @@ Item {
         width: 4
         height: 4
         radius: 2
-        color: "#feb877"
-
-        // ToolTip.visible: root.hovered
-        // ToolTip.text: root.appName
-        // ToolTip.delay: 400
+        color: Theme.colors.primary
+    
+        ToolTip {
+            visible: root.hovered
+            text: root.appName
+            delay: 400
+            opacity: 0.8
+            
+        }
     }
 
     MouseArea {
