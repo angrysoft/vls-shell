@@ -36,14 +36,12 @@ WlSessionLock {
             }
 
             onCompleted: result => {
-                // console.log("PAM authentication completed with result:", result)
                 if (result === PamResult.Success) {
                     SessionService.isLocked = false;
                     SessionService.restoreMonitors();
                 } else {
-                    // Failed / Error / MaxTries — pokaż shake, wyczyść pole
-                    passwordField.clear();
-                    // passwordField.showError();
+                    passwordField.triggerShake();
+                    // passwordField.clear();
                 }
             }
         }
@@ -98,24 +96,80 @@ WlSessionLock {
                     implicitWidth: 260
                     implicitHeight: 48
                     placeholderText: qsTr("Password")
-                    focus: true
+                    // focus: true
                     echoMode: TextInput.Password
                     passwordCharacter: "*"
 
-                    onAccepted: pam.start()
+                    enabled: !pam.active
+
+                    onAccepted: {
+                        pam.start();
+                    }
 
                     // Keys.onReturnPressed: tryUnlock(text)
 
                     Keys.onEscapePressed: passwordField.clear()
 
-                    // Keys.onPressed: (event) => {
-                    //     SessionService.restoreMonitors()
-                    // }
-                    // Keys.onEscapePressed: {
-                    //     SessionService.isLocked = false
-                    // }
+                    Component.onCompleted: {
+                        if (surface.isPasswordScreen) {
+                            passwordField.forceActiveFocus();
+                        }
+                    }
 
-                    Component.onCompleted: passwordField.forceActiveFocus()
+                    function triggerShake() {
+                        shakeAnimation.restart();
+                        passwordField.clear();
+                    }
+
+                    property real originX: x
+
+                    // Animacja przesunięcia względem środka
+                    SequentialAnimation {
+                        id: shakeAnimation
+
+                        NumberAnimation {
+                            target: passwordField
+                            property: "anchors.horizontalCenterOffset"
+                            to: -10
+                            duration: 50
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordField
+                            property: "anchors.horizontalCenterOffset"
+                            to: 10
+                            duration: 50
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordField
+                            property: "anchors.horizontalCenterOffset"
+                            to: -8
+                            duration: 50
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordField
+                            property: "anchors.horizontalCenterOffset"
+                            to: 8
+                            duration: 50
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordField
+                            property: "anchors.horizontalCenterOffset"
+                            to: -4
+                            duration: 50
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordField
+                            property: "anchors.horizontalCenterOffset"
+                            to: 0
+                            duration: 50
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
                 }
             }
         }
