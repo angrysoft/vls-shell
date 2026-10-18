@@ -63,9 +63,14 @@ Scope {
         visible: dockScope.favorites.length > 0
 
         implicitWidth: dockContainer.implicitWidth
+        // implicitHeight: dockContainer.implicitHeight + 8
         // implicitHeight: 200
+        mask: Region {
+            item: dockHoverArea
+        }
 
         MouseArea {
+            id: dockHoverArea
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             width: dockContainer.implicitWidth
