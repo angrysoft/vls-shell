@@ -23,7 +23,7 @@ PanelWindow {
         top: 12
     }
 
-    implicitWidth: 360
+    implicitWidth: 500
     implicitHeight: column.implicitHeight
 
     ColumnLayout {
