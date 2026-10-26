@@ -30,7 +30,7 @@ clean:
 
 install:
 	# vlsmsg binary installation
-	install -d ${BINDIR}
+	install -d ${DESTDIR}${BINDIR}
 	install -m 0755 ${OUT_DIR}/$(BINARY_NAME) ${DESTDIR}${BINDIR}
 	
 	# shell installation
