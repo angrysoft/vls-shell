@@ -35,12 +35,12 @@ install:
 	
 	# shell installation
 	install -d ${INSTALL_DIR}
-	cp -r app components config i18n modules services theme shell.qml $(INSTALL_DIR)/
+	@cp -rv app components config i18n modules services theme shell.qml $(INSTALL_DIR)/
 	
 	# helpers (desktop entries)
 	install -d ${DESTDIR}$(DATADIR)/applications/
-	install -m 0644 ${SRC_DIR}/poweroff.desktop ${DESTDIR}$(DATADIR)/applications/
-	install -m 0644 ${SRC_DIR}/reboot.desktop ${DESTDIR}$(DATADIR)/applications/
+	install -m 0644 poweroff.desktop ${DESTDIR}$(DATADIR)/applications/
+	install -m 0644 reboot.desktop ${DESTDIR}$(DATADIR)/applications/
 
 # Uruchomienie testów w projekcie
 test:
