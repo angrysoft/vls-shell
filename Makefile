@@ -41,6 +41,8 @@ install:
 	install -d ${DESTDIR}$(DATADIR)/applications/
 	install -m 0644 poweroff.desktop ${DESTDIR}$(DATADIR)/applications/
 	install -m 0644 reboot.desktop ${DESTDIR}$(DATADIR)/applications/
+	# wallpaper
+	install -D -m 0644 veles-wallpaper-4k.png ${DESTDIR}$(DATADIR)/wallpapers/veles-wallpaper-4k.png
 
 # Uruchomienie testów w projekcie
 test:
