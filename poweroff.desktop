@@ -4,7 +4,7 @@ Name=Poweroff
 Name[pl_PL]=Wyłącz komputer
 GenericName=Power Off
 Comment=Poweroff computer
-Exec=systemctl poweroff:wq
+Exec=systemctl poweroff
 
 Icon=system-shutdown
 Terminal=false
