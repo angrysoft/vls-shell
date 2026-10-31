@@ -16,12 +16,12 @@ Item {
     Layout.fillWidth: true
     Layout.margins: Theme.style.dialogPadding
 
-
     Rectangle {
         id: contentWrapper
         width: parent.width
         radius: Theme.style.dialogRadius
         color: Theme.colors.surface_container
+        
 
         implicitHeight: content.implicitHeight
 
@@ -33,7 +33,7 @@ Item {
                 visible: playerView.player.trackArtUrl !== ""
                 source: playerView.player.trackArtUrl
                 // Layout.preferredWidth:
-                Layout.margins: Theme.style.dialogPadding
+                Layout.margins: Theme.style.padding
 
                 Layout.preferredHeight: 100
                 fillMode: Image.PreserveAspectFit
@@ -69,7 +69,7 @@ Item {
                         icon.name: "media-skip-backward-symbolic"
                         icon.width: 20
                         icon.height: 20
-                        icon.color: Theme.colors.on_surface_container
+                        icon.color: Theme.colors.on_surface
                         background: Rectangle {
                             color: "transparent"
                         }
@@ -79,12 +79,10 @@ Item {
 
                     Button {
                         text: ""
-                        implicitWidth: 40
-                        implicitHeight: 40
                         icon.name: playerView.player.playbackState === MprisPlaybackState.Playing ? "media-playback-pause-symbolic" : "media-playback-start-symbolic"
                         icon.width: 20
                         icon.height: 20
-                        icon.color: Theme.colors.on_surface_container
+                        icon.color: Theme.colors.on_surface
                         background: Rectangle {
                             color: "transparent"
                         }
@@ -97,7 +95,7 @@ Item {
                         icon.name: "media-skip-forward-symbolic"
                         icon.width: 20
                         icon.height: 20
-                        icon.color: Theme.colors.on_surface_container
+                        icon.color: Theme.colors.on_surface
                         background: Rectangle {
                             color: "transparent"
                         }
