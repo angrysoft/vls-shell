@@ -16,4 +16,5 @@ Text {
     font.pixelSize: Theme.style.fontSize
     elide: Text.ElideRight
     width: maxWidth
+    wrapMode: Text.WordWrap
 }

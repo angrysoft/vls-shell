@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Services.Mpris
 import qs.theme
-// import qs.components
+import qs.components
 import qs.services
 
 Item {
@@ -43,22 +43,21 @@ Item {
                 Layout.fillWidth: true
                 spacing: Theme.style.spacing
 
-                Text {
+                TextLabel {
                     text: playerView.player.trackTitle
                     color: Theme.colors.on_surface
                     font.bold: true
                     Layout.fillWidth: true
-                    elide: Text.ElideRight
+                    maximumLineCount: 1
+                    maxWidth: parent.width
                 }
-                Text {
+                TextLabel {
                     visible: playerView.player.trackArtist !== ""
                     text: playerView.player.trackArtist.replace(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9a-fA-F]+;)/g, "&amp;")
                     color: Theme.colors.on_surface_variant
-                    wrapMode: Text.Wrap
-                    Layout.fillWidth: true
                     maximumLineCount: 3
-                    elide: Text.ElideRight
-                    textFormat: Text.StyledText 
+                    width: parent.width
+                    maxWidth: parent.width - Theme.style.padding * 2
                 }
 
                 RowLayout {

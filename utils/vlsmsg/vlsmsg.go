@@ -121,6 +121,8 @@ func main() {
 		handleLauncher(socketPath, args)
 	case "notification":
 		handleNotification(socketPath, args)
+	case "player":
+		handlePlayer(socketPath, args)
 	case "session":
 		handleSession(socketPath, args)
 	case "app":
@@ -223,6 +225,31 @@ func handleApp(socketPath string, args []string) {
 
 	fmt.Println("Handling app command:", app)
 	result, isVoid, err := Call(socketPath, "app", cmd, app)
+	fmt.Println(resultLabel, result)
+	fmt.Println(isVoidLabel, isVoid)
+	fmt.Println(errorLabel, err)
+}
+
+func handlePlayer(socketPath string, args []string) {
+	cmd := ""
+	switch args[0] {
+	case "play":
+		cmd = "play"
+	case "pause":
+		cmd = "pause"
+	case "playPause":
+		cmd = "playPause"
+	case "next":
+		cmd = "next"
+	case "previous":
+		cmd = "previous"
+	case "status":
+		cmd = "status"
+	default:
+		fmt.Println("Unknown player command:", args[0])
+		return
+	}
+	result, isVoid, err := Call(socketPath, "player", cmd, []string{})
 	fmt.Println(resultLabel, result)
 	fmt.Println(isVoidLabel, isVoid)
 	fmt.Println(errorLabel, err)
