@@ -24,11 +24,7 @@ Singleton {
 
     function playPause() {
         if (playerService.currentPlayer) {
-            if (playerService.currentPlayer.playbackState === "Playing") {
-                playerService.currentPlayer.pause();
-            } else {
-                playerService.currentPlayer.play();
-            }
+            playerService.currentPlayer.togglePlaying();
         }
     }
 
