@@ -6,7 +6,7 @@ import qs.services
 IconImage {
     id: logo
     implicitSize: parent.implicitHeight
-    source: Quickshell.iconPath("archlinux-logo", "distributor-logo-archlinux")
+    source: Quickshell.iconPath("veles-logo")
     smooth: true
     
     TapHandler {
