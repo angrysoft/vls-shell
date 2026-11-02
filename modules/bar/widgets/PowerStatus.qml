@@ -15,6 +15,7 @@ Row {
     TextLabel {
         text: PowerService.isPresent ? PowerService.percentage + "%" : "N/A"
         bold: true
+        width: implicitWidth
     }
     
     IconImage {

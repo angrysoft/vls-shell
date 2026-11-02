@@ -69,6 +69,7 @@ Row {
         text: cpuUsage.toFixed(1) + "%";
         maximumLineCount: 1
         bold: true
+        width: implicitWidth
     }
 
     Timer {

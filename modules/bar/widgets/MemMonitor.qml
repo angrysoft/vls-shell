@@ -61,5 +61,6 @@ Row {
     TextLabel {
         text: usedGiB.toFixed(1) + " / " + totalGiB.toFixed(1) + " GiB"
         bold: true
+        width: implicitWidth
     }
 }

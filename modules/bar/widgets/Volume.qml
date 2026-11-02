@@ -31,6 +31,7 @@ Row {
         text: volume.volumeLevel + "%"
         maximumLineCount: 1
         bold: true
+        width: implicitWidth
     }
 
     IconImage {

@@ -125,4 +125,8 @@ Row {
         maximumLineCount: 1
         maxWidth: 400
     }
+
+    Hint {
+        text: focusedWindow
+    }
 }
