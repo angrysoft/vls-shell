@@ -1,21 +1,22 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Layouts
 
 import qs.theme
 import qs.components
 import qs.services
 
-Row {
+RowLayout {
     id: powerStatus
     height: parent.height
     spacing: Theme.style.spacing
     visible: PowerService.isPresent
     
-    TextLabel {
+    Text {
         text: PowerService.isPresent ? PowerService.percentage + "%" : "N/A"
-        bold: true
-        width: implicitWidth
+        font.bold: true
+        color: Theme.colors.on_surface
     }
     
     IconImage {

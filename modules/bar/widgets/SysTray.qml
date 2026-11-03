@@ -1,12 +1,13 @@
 import Quickshell
 import QtQuick
+import QtQuick.Layouts
 import Quickshell.Services.SystemTray
 import qs.theme
 
-Row {
+RowLayout {
     id: tray
     visible: trayItems.count > 0
-    height: parent.height
+    Layout.preferredHeight: parent.height - Theme.style.padding * 2
     spacing: Theme.style.spacing
 
     Repeater {

@@ -1,11 +1,12 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Io
 import qs.components
 import qs.theme
 
-Row {
+RowLayout {
     height: parent.height
     spacing: Theme.style.spacing
     property real memUsagePercent: 0.0
@@ -38,8 +39,9 @@ Row {
                 } else if (line.startsWith("MemAvailable:")) {
                     memAvailable = parseInt(line.replace(/[^0-9]/g, "")) || 0;
                 }
-                
-                if (memTotal > 0 && memAvailable > 0) break;
+
+                if (memTotal > 0 && memAvailable > 0)
+                    break;
             }
 
             if (memTotal > 0) {
@@ -58,9 +60,9 @@ Row {
         smooth: true
     }
 
-    TextLabel {
+    Text {
         text: usedGiB.toFixed(1) + " / " + totalGiB.toFixed(1) + " GiB"
-        bold: true
-        width: implicitWidth
+        font.bold: true
+        color: Theme.colors.on_surface
     }
 }

@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Widgets
 import qs.services
+import qs.theme
 
 IconImage {
     id: logo

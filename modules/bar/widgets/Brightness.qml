@@ -12,10 +12,11 @@ Row {
     property real brightnessLevel: Math.floor(BrightnessService.percent * 100)
     visible: BrightnessService.device.length > 0
 
-    TextLabel {
+    Text {
         text: brightness.brightnessLevel + "%"
         maximumLineCount: 1
-        bold: true
+        font.bold: true
+        color: Theme.colors.on_surface
     }
 
     IconImage {

@@ -1,12 +1,13 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Controls
 import qs.theme
 import qs.components
 import qs.services
 
-Row {
+RowLayout {
     id: volume
     spacing: Theme.style.spacing
     property real volumeLevel: Math.floor(VolumeService.volume * 100)
@@ -27,11 +28,11 @@ Row {
         }
     }
     
-    TextLabel {
+    Text {
         text: volume.volumeLevel + "%"
         maximumLineCount: 1
-        bold: true
-        width: implicitWidth
+        font.bold: true
+        color: Theme.colors.on_surface
     }
 
     IconImage {

@@ -1,10 +1,10 @@
 import Quickshell
 import Quickshell.I3
 import QtQuick
+import QtQuick.Layouts
 import qs.theme
 
-
-Row {
+RowLayout {
     spacing: Theme.style.spacing
 
     WheelHandler {
@@ -17,16 +17,16 @@ Row {
             }
         }
     }
-    
+
     Repeater {
         model: I3.workspaces
         delegate: Rectangle {
             id: wdButton
-            implicitHeight: Theme.style.barHeight - Theme.style.padding * 2
-            implicitWidth: implicitHeight
+            Layout.fillHeight: true
+            Layout.preferredWidth: height
             radius: Theme.style.borderRadius
             color: modelData.focused ? Theme.colors.surface_container_high : "transparent"
-          
+
             Text {
                 anchors.centerIn: parent
                 text: modelData.name
@@ -43,8 +43,6 @@ Row {
                     }
                 }
             }
-
-            
-            }
         }
+    }
 }

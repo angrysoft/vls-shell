@@ -1,12 +1,14 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Io
 import qs.components
 import qs.theme
 
-Row {
+RowLayout {
     spacing: Theme.style.spacing
+    
     property real cpuUsage: 0.0
 
     property var prevTotal: 0
@@ -65,11 +67,11 @@ Row {
         smooth: true
     }
 
-    TextLabel {
+    Text {
         text: cpuUsage.toFixed(1) + "%";
         maximumLineCount: 1
-        bold: true
-        width: implicitWidth
+        color: Theme.colors.on_surface
+        font.bold: true
     }
 
     Timer {
