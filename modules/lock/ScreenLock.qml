@@ -69,7 +69,7 @@ WlSessionLock {
 
                     text: locale.toString(clock.date, format)
 
-                    bold: true
+                    font.bold: true
                 }
 
                 TextLabel {
@@ -86,7 +86,7 @@ WlSessionLock {
 
                     text: locale.toString(dateClock.date, format)
 
-                    bold: true
+                    font.bold: true
                 }
 
                 StyledTextField {

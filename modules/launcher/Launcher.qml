@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Material
 import Quickshell
@@ -69,29 +70,29 @@ PanelWindow {
             anchors.fill: parent
         } // pochłania klik, nie zamyka
 
-        Column {
+        ColumnLayout {
             anchors.fill: parent
             anchors.margins: 12
             spacing: 8
 
             StyledTextField {
                 id: searchField
-                width: parent.width
+                Layout.fillWidth: true
                 placeholderText: qsTr("Search...")
                 focus: launcherVisible
 
-                onTextChanged: LauncherService.updateFilter(text)
+                onTextChanged: LauncherService.search(text)
 
                 Keys.onDownPressed: LauncherService.moveSelection(1)
                 Keys.onUpPressed: LauncherService.moveSelection(-1)
-                Keys.onReturnPressed: LauncherService.launchSelected()
+                Keys.onReturnPressed: LauncherService.execute()
                 Keys.onEscapePressed: LauncherService.hide()
             }
 
             ListView {
                 id: resultsView
-                width: parent.width
-                height: parent.height - searchField.height - 8
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 clip: true
                 model: LauncherService.filtered
                 currentIndex: LauncherService.selectedIndex
@@ -103,7 +104,7 @@ PanelWindow {
                     isSelected: index === LauncherService.selectedIndex
                     onClicked: {
                         LauncherService.selectedIndex = index;
-                        LauncherService.launchSelected();
+                        LauncherService.execute();
                     }
                 }
             }

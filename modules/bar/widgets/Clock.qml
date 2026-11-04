@@ -22,7 +22,7 @@ TextLabel {
 
     text: locale.toString(clock.date, format)
 
-    bold: true
+    font.bold: true
 
     property bool isOpen: false
 
@@ -129,7 +129,7 @@ TextLabel {
 
                             return monthName + " " + clockView.currentDate.getFullYear();
                         }
-                        bold: true
+                        font.bold: true
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
                     }
@@ -181,7 +181,7 @@ TextLabel {
                             anchors.centerIn: parent
                             text: model.day
                             opacity: model.month === grid.month ? 1.0 : 0.3
-                            bold: parent.today
+                            font.bold: parent.today
                             color: parent.today ? Theme.colors.on_primary_container : Theme.colors.on_surface
                         }
 

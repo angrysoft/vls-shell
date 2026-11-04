@@ -3,6 +3,7 @@ import Quickshell.Widgets
 import Quickshell.I3
 import Quickshell.Io
 import QtQuick
+import QtQuick.Layouts
 
 import qs.theme
 import qs.config
@@ -11,7 +12,7 @@ import qs.components
 
 
 
-Row {
+RowLayout {
     spacing: Theme.style.spacing
 
     property string focusedWindow: ""
@@ -95,7 +96,6 @@ Row {
         implicitSize: Theme.style.barHeight - Theme.style.padding * 2
         source: Quickshell.iconPath("window-close-symbolic")
         smooth: true
-        anchors.verticalCenter: parent.verticalCenter
 
         HoverHandler {
             id: hover
@@ -114,16 +114,19 @@ Row {
 
     IconImage {
         implicitSize: Theme.style.fontSize
-        anchors.verticalCenter: parent.verticalCenter
         source: focusedWindow !== "" ? Quickshell.iconPath(resolveIcon(focusedAppId), "application-x-executable") : ""
         smooth: true
     }
 
-    TextLabel {
-        anchors.verticalCenter: parent.verticalCenter
+    Text {
         text: focusedWindow
+        elide: Text.ElideRight
+        color: Theme.colors.on_surface
+        font.family: Theme.style.fontFamily
+        font.pixelSize: Theme.style.fontSize
         maximumLineCount: 1
-        maxWidth: 400
+        Layout.maximumWidth: 400
+        Layout.preferredWidth: implicitWidth
     }
 
     Hint {
