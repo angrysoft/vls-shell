@@ -11,6 +11,10 @@ Singleton {
 			path: `${Quickshell.env("HOME")}/.config/vls-shell/colors.json`
 			watchChanges: true
 			onFileChanged: reload()
+			onLoadFailed: error => {
+				if (error === FileViewError.FileNotFound)
+					writeAdapter()
+			}
 
 		JsonAdapter {
 			id: colors
@@ -74,6 +78,10 @@ Singleton {
 		path: `${Quickshell.env("HOME")}/.config/vls-shell/style.json`
 		watchChanges: true
 		onFileChanged: reload()
+		onLoadFailed: error => {
+			if (error === FileViewError.FileNotFound)
+				writeAdapter()
+		}
 
 		JsonAdapter {
 			id: style

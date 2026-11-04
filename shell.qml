@@ -71,4 +71,9 @@ ShellRoot {
     //     I18n.locale = sysLang;
     //     Qt.uiLanguage = sysLang;
     // }
+    Process {
+        id: confifDit
+        command: ["mkdir", "-p", `${Quickshell.env('HOME')}/.config/vls-shell`]
+        running: true
+    }
 }
