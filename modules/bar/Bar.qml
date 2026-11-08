@@ -56,9 +56,17 @@ PanelWindow {
             RowLayout {
                 spacing: bar.widgetSpacing
                 
-                Menu {}
-                Workspaces {}
-                ActiveWindow {}
+                Menu {
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height
+                }
+
+                Tags {
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height
+                }
+                // Workspaces {}
+                // ActiveWindow {}
 
             }
         }
