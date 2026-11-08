@@ -83,16 +83,16 @@ Singleton {
     function offMonitors() {
         console.log("Turning off monitors")
         if (screensOff) return
-        cmd.command = ["swaymsg", "output * power off"]
+        cmd.command = ["wlopm", "--off", "*"]
         cmd.running = true
         screensOff = true
     }
 
 
     function restoreMonitors() {
-        console.log("Restoring monitors")
         if (!screensOff) return
-        cmd.command = ["swaymsg", "output * power on"]
+        console.log("Restoring monitors")
+        cmd.command = ["wlopm", "--on", "*"]
         cmd.running = true
         offMonitorOnLock.stop()
         screensOff = false

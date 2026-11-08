@@ -39,7 +39,6 @@ Rectangle {
         stdout: SplitParser {
             splitMarker: "\n"
             onRead: data => {
-                console.log("Dane procesu:", data);
                 try {
                     let allTags = JSON.parse(data);
                     for (let monitor of allTags.all_tags) {
@@ -70,33 +69,3 @@ Rectangle {
         font.bold: true
     }
 }
-
-// Repeater {
-//     model: tagsRow.tags.all_tags
-//     delegate: Rectangle {
-//         id: wdButton
-//         Layout.fillHeight: true
-//         Layout.preferredWidth: height
-//         radius: Theme.style.borderRadius
-//         color: modelData.focused ? Theme.colors.surface_container_high : "transparent"
-
-//         Text {
-//             anchors.centerIn: parent
-//             text: modelData.monitor
-//             color: modelData.focused ? Theme.colors.on_surface : Theme.colors.on_surface_variant
-//             font.pixelSize: Theme.style.fontSize
-//             font.bold: modelData.focused
-//         }
-
-//         TapHandler {
-//             acceptedButtons: Qt.LeftButton | Qt.RightButton
-//             onTapped: (eventPoint, button) => {
-//                 if (button === Qt.LeftButton) {
-//                     // I3.dispatch("workspace " + modelData.name);
-//                     console.log("Left button tapped on tag:", modelData.index);
-//                 }
-//             }
-//         }
-//     }
-// }
-// }
