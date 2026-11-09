@@ -1,5 +1,3 @@
-
-
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.I3
@@ -10,7 +8,6 @@ import qs.theme
 import qs.modules.bar.widgets
 import qs.modules.bar.widgets.notifications
 import qs.config
-
 
 PanelWindow {
     id: bar
@@ -32,110 +29,107 @@ PanelWindow {
     }
 
     Component.onCompleted: {
-        console.log("Bar initialized on screen:", bar.screen.name)
+        console.log("Bar initialized on screen:", bar.screen.name);
     }
 
     implicitHeight: Theme.style.barHeight + Theme.style.padding * 2
     color: Theme.style.barBackgroundColor ?? Theme.colors.surface
-    
 
-        // ── Left: Workspaces ─────────────────────────────────────
-        WrapperRectangle {
-            id: leftWrapper
-            anchors.left: parent.left
-            anchors.leftMargin: Theme.style.margin
-            anchors.verticalCenter: parent.verticalCenter
-            color: Theme.colors.surface
-            implicitHeight: Theme.style.barHeight
-            topMargin: bar.calcTopMargin
-            bottomMargin: bar.calcTopMargin
-            leftMargin: bar.calcSideMargin
-            rightMargin: bar.calcSideMargin
-            radius: implicitHeight / 2
+    // ── Left: Workspaces ─────────────────────────────────────
+    WrapperRectangle {
+        id: leftWrapper
+        anchors.left: parent.left
+        anchors.leftMargin: Theme.style.margin
+        anchors.verticalCenter: parent.verticalCenter
+        color: Theme.colors.surface
+        implicitHeight: Theme.style.barHeight
+        topMargin: bar.calcTopMargin
+        bottomMargin: bar.calcTopMargin
+        leftMargin: bar.calcSideMargin
+        rightMargin: bar.calcSideMargin
+        radius: implicitHeight / 2
 
-            RowLayout {
-                spacing: bar.widgetSpacing
-                
-                Menu {
-                    Layout.fillHeight: true
-                    Layout.preferredWidth: height
-                }
+        RowLayout {
+            spacing: bar.widgetSpacing
 
-                Tags {
-                    Layout.fillHeight: true
-                    Layout.preferredWidth: height
-                }
-                // Workspaces {}
-                // ActiveWindow {}
+            Menu {
+                Layout.fillHeight: true
+                Layout.preferredWidth: height
+            }
 
+            Tags {
+                Layout.fillHeight: true
+                Layout.preferredWidth: height
+            }
+            // Workspaces {}
+            ActiveWindow {
+                Layout.fillHeight: true
             }
         }
+    }
 
-        // ── Center: Clock ─────────────────────────────────────────
-        WrapperRectangle {
-                id: centerWrapper
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                color: Theme.colors.surface
-                implicitHeight: Theme.style.barHeight
-                topMargin: bar.calcTopMargin
-                bottomMargin: bar.calcTopMargin
-                leftMargin: bar.calcSideMargin
-                rightMargin: bar.calcSideMargin
-                radius: implicitHeight / 2
+    // ── Center: Clock ─────────────────────────────────────────
+    WrapperRectangle {
+        id: centerWrapper
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        color: Theme.colors.surface
+        implicitHeight: Theme.style.barHeight
+        topMargin: bar.calcTopMargin
+        bottomMargin: bar.calcTopMargin
+        leftMargin: bar.calcSideMargin
+        rightMargin: bar.calcSideMargin
+        radius: implicitHeight / 2
 
-            RowLayout {
-                spacing: bar.widgetSpacing
-                Clock {}
-                NotificationCenter {}
-                
-            }
+        RowLayout {
+            spacing: bar.widgetSpacing
+            Clock {}
+            NotificationCenter {}
         }
+    }
 
+    WrapperRectangle {
+        id: infoWrapper
+        anchors.right: rightWrapper.left
+        anchors.rightMargin: Theme.style.margin
+        anchors.verticalCenter: parent.verticalCenter
+        color: Theme.colors.surface
+        implicitHeight: Theme.style.barHeight
+        topMargin: bar.calcTopMargin
+        bottomMargin: bar.calcTopMargin
+        leftMargin: bar.calcSideMargin
+        rightMargin: bar.calcSideMargin
+        radius: implicitHeight / 2
 
-
-        WrapperRectangle {
-            id: infoWrapper
-            anchors.right: rightWrapper.left
-            anchors.rightMargin: Theme.style.margin
-            anchors.verticalCenter: parent.verticalCenter
-            color: Theme.colors.surface
-            implicitHeight: Theme.style.barHeight
-            topMargin: bar.calcTopMargin
-            bottomMargin: bar.calcTopMargin
-            leftMargin: bar.calcSideMargin
-            rightMargin: bar.calcSideMargin
-            radius: implicitHeight / 2
-
-            RowLayout {
-                spacing: bar.widgetSpacing
-                MemMonitor {}
-                CpuMonitor {}
-            }
+        RowLayout {
+            spacing: bar.widgetSpacing
+            MemMonitor {}
+            CpuMonitor {}
         }
+    }
 
-        // ── Right: System Tray ────────────────────────────────────
+    // ── Right: System Tray ────────────────────────────────────
 
-        WrapperRectangle {
-            id: rightWrapper
-            anchors.right: parent.right
-            anchors.rightMargin: Theme.style.margin
-            anchors.verticalCenter: parent.verticalCenter
-            color: Theme.colors.surface
-            implicitHeight: Theme.style.barHeight
-            topMargin: bar.calcTopMargin
-            bottomMargin: bar.calcTopMargin
-            leftMargin: bar.calcSideMargin
-            rightMargin: bar.calcSideMargin
-            radius: implicitHeight / 2
-            RowLayout {
-                spacing: bar.widgetSpacing
-                SysTray {}
-                Brightness {}
-                Volume {}
-                UpdatesStatus {}
-                PowerStatus {}
-                Shutdown {}
-            }
+    WrapperRectangle {
+        id: rightWrapper
+        anchors.right: parent.right
+        anchors.rightMargin: Theme.style.margin
+        anchors.verticalCenter: parent.verticalCenter
+        color: Theme.colors.surface
+        implicitHeight: Theme.style.barHeight
+        topMargin: bar.calcTopMargin
+        bottomMargin: bar.calcTopMargin
+        leftMargin: bar.calcSideMargin
+        rightMargin: bar.calcSideMargin
+        radius: implicitHeight / 2
+        RowLayout {
+            spacing: bar.widgetSpacing
+            SysTray {}
+            Brightness {}
+            Volume {}
+            UpdatesStatus {}
+            PowerStatus {}
+            Shutdown {}
         }
+    }
 }
